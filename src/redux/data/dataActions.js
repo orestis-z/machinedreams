@@ -21,24 +21,45 @@ const fetchDataFailed = (payload) => {
   };
 };
 
-export const fetchData = () => {
+export const fetchData = (blockchain) => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-      let totalSupply = await store
-        .getState()
-        .blockchain.smartContract.methods.totalSupply()
-        .call();
-      // let cost = await store
-      //   .getState()
-      //   .blockchain.smartContract.methods.cost()
-      //   .call();
+        const data = {}
+
+        console.log(blockchain.smartContract.methods)
+
+        const totalSupply = await blockchain
+        .smartContract.methods.totalSupply().call();
+        console.log(totalSupply)
+        data.totalSupply = totalSupply;
+
+        if ('publicSaleIsActive' in blockchain
+        .smartContract.methods) {
+            const publicSaleIsActive = await blockchain
+            .smartContract.methods.publicSaleIsActive().call();
+            console.log(publicSaleIsActive)
+            data.publicSaleIsActive = publicSaleIsActive;
+        }
+
+        if ('binarySaleIsActive' in blockchain
+        .smartContract.methods) {
+            const binarySaleIsActive = await blockchain
+            .smartContract.methods.binarySaleIsActive().call();
+            console.log(binarySaleIsActive)
+            data.binarySaleIsActive = binarySaleIsActive;
+        }
+
+        if ('saleIsActive' in blockchain
+        .smartContract.methods) {
+            const saleIsActive = await blockchain
+            .smartContract.methods.saleIsActive().call();
+            console.log(saleIsActive)
+            data.saleIsActive = saleIsActive;
+        }
 
       dispatch(
-        fetchDataSuccess({
-          totalSupply,
-          // cost,
-        })
+        fetchDataSuccess(data)
       );
     } catch (err) {
       console.log(err);

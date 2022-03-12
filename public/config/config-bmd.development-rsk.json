@@ -1,12 +1,9 @@
 {
-  "CONTRACT_ADDRESS": "0x96F5586Ae5e0885cC51382d3be6Aaf69118ac808",
-  "SCAN_LINK": "https://explorer.testnet.rsk.co/address/0x96F5586Ae5e0885cC51382d3be6Aaf69118ac808",
+  "CONTRACT_ADDRESS": "0x96f5586Ae5E0885cc51382d3Be6aaf69118ac808",
+  "SCAN_LINK": "https://explorer.testnet.rsk.co/address/0x96f5586Ae5E0885cc51382d3Be6aaf69118ac808",
   "NETWORK": {
-    // "NAME": "Ethereum",
-    // "SYMBOL": "ETH",
-    // "ID": 137,
     "NAME": "RSK Testnet",
-    "SYMBOL": "TRBTC",
+    "SYMBOL": "tRBTC",
     "ID": 31
   },
   "NFT_NAME": "Ukraine Punk",
@@ -14,7 +11,7 @@
   "MAX_SUPPLY": 10000,
   "WEI_COST": 24000000000000000,
   "DISPLAY_COST": 0.024,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 100000,
   "MARKETPLACE": "Opensea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/ukraine-punks",
   "SHOW_BACKGROUND": true

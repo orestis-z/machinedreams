@@ -85,6 +85,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  background-color: black;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -128,9 +129,37 @@ table {
   src: local("coder"), url(font.woff) format("woff");
 }
 
+@font-face {
+    font-family: "hairline";
+    src: url(aktivgrotesk-hairline-webfont.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "light";
+    src: url(aktivgrotesk-light-webfont.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "thin";
+    src: url(aktivgrotesk-thin-webfont.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "regular";
+    src: url(aktivgrotesk-regular-webfont.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "seriff";
+    src: url(seriff-regular-webfont.woff) format("woff");
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Nunito+Sans:wght@200&family=Rubik:ital@0;1&display=swap');
+
 body {
   margin: 0;
-  font-family: "coder", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+  font-family: "Montserrat", "coder", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -159,11 +188,32 @@ body {
 html {
   background-color: "#4C4C4C";
 }
-
+/*
 div {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -o-user-select: none;
+} */
+
+.web3modal-provider-name {
+    background-color: transparent;
+}
+
+.web3modal-provider-description {
+    background-color: transparent;
+}
+
+.link {
+    display: inline-block;
+    transition: 0.2s;
+    color: white;
+    text-decoration: none;
+    padding-right: 20px;
+}
+
+.link:hover {
+    opacity: 0.7;
+    /* text-decoration: underline; */
 }

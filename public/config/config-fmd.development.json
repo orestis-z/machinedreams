@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0x1410Fb29F42F3df7A4A32fD27092b7fc51130E08",
+  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x1410Fb29F42F3df7A4A32fD27092b7fc51130E08",
+  "NETWORK": {
+    "NAME": "Rinkeby Testnet",
+    "SYMBOL": "ETH",
+    "ID": 4
+  },
+  "NFT_NAME": "Fluid Machine Dreams",
+  "SYMBOL": "LMD",
+  "MAX_SUPPLY": 8128,
+  "WEI_COST": 50000000000000000,
+  "DISPLAY_COST": 0.05,
+  "GAS_LIMIT": 3000000,
+  "MARKETPLACE": "Opensea",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/lucid-machine-dreams",
+  "SHOW_BACKGROUND": false
+}

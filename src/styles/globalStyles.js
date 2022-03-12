@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // Used for wrapping a page component
 export const Screen = styled.div`
-  background-color: var(--primary);
+  background-color: black;
   background-image: ${({ image }) => (image ? `url(${image})` : "none")};
   background-size: cover;
   background-position: center;
@@ -38,16 +38,30 @@ export const SpacerLarge = styled.div`
 
 // Used for providing a wrapper around a component
 export const Container = styled.div`
-  display: flex;
+  display: inline-flex;
+  position: relative;
   flex: ${({ flex }) => (flex ? flex : 0)};
   flex-direction: ${({ fd }) => (fd ? fd : "column")};
   justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
   align-items: ${({ ai }) => (ai ? ai : "flex-start")};
   background-color: ${({ test }) => (test ? "pink" : "none")};
-  width: 100%;
+  width: ${({ width }) => (width ? width : "none")};
   background-image: ${({ image }) => (image ? `url(${image})` : "none")};
   background-size: cover;
-  background-position: center;
+  background-position: top;
+  background-repeat: no-repeat;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.3;
+    // background-color: ${({ overlay }) => (overlay ? `var(--primary)` : "none")};
+    z-index: ${({ overlay }) => (overlay ? 0 : 1)};
+    pointer-events: none;
+  }
 `;
 
 export const TextTitle = styled.p`
