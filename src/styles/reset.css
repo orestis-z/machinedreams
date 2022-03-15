@@ -86,6 +86,7 @@ video {
   font: inherit;
   vertical-align: baseline;
   background-color: black;
+  scroll-behavior:smooth;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -106,7 +107,10 @@ body {
 }
 ol,
 ul {
-  list-style: none;
+  /* list-style: none; */
+  /* list-style-position: inside; */
+  margin-left: 1em;
+  text-align: left;
 }
 blockquote,
 q {
@@ -214,6 +218,6 @@ div {
 }
 
 .link:hover {
-    opacity: 0.7;
+    opacity: 0.67;
     /* text-decoration: underline; */
 }

@@ -2,14 +2,12 @@ import styled from "styled-components";
 
 // Used for wrapping a page component
 export const Screen = styled.div`
-  background-color: black;
-  background-image: ${({ image }) => (image ? `url(${image})` : "none")};
-  background-size: cover;
-  background-position: center;
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 // Used for providing space between components
@@ -38,7 +36,8 @@ export const SpacerLarge = styled.div`
 
 // Used for providing a wrapper around a component
 export const Container = styled.div`
-  display: inline-flex;
+  // display: inline-flex;
+  display: flex;
   position: relative;
   flex: ${({ flex }) => (flex ? flex : 0)};
   flex-direction: ${({ fd }) => (fd ? fd : "column")};

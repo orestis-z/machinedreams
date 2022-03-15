@@ -4,22 +4,16 @@ import styled from "styled-components";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAt, faHouse } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 
 export const StyledVid = styled.video`
   background-color: black;
   border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 5)}%;
-  height: calc(100vh - 80px);
-  margin-top: 80px;
-  margin-left: calc((((100vh - 80px) / 9 * 16) - 200vh + 160px) / 2);
   transition: width 0.5s;
 `;
-
-export const StyledVidContainer = styled.div`
-    width: calc((100vh - 80px)/ 9 * 16);
-    overflow:hidden;
-    display:block;
-`
 
 export const StyledImg = styled.img`
   border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 5)}%;
@@ -27,7 +21,7 @@ export const StyledImg = styled.img`
   @media (min-width: 900px) {
     width: ${({ width }) => ((width ? width : 200) * 1.25)}px;
   }
-  @media (min-width: 1000px) {
+  @media (min-width: 1100px) {
     width: ${({ width }) => ((width ? width : 200) * 1.5)}px;
   }
   transition: width 0.5s, opacity 0.2s;
@@ -36,274 +30,442 @@ export const StyledImg = styled.img`
   }
 `;
 
+export const Hover = styled.div`
+  display: inline-block;
+  transition:opacity 0.2s;
+  :hover {
+    opacity: 0.67;
+  }
+`;
+
+export const HoverLi = styled.li`
+  transition:opacity 0.2s;
+  :hover {
+    opacity: 0.67;
+  }
+`;
+
+export const SpacerL = styled.div`
+  height: 8em;
+`;
+
+export const SpacerM = styled.div`
+  height: 6em;
+`;
+
+export const SpacerS = styled.div`
+  height: 4em;
+`;
+
+export const SpacerXS = styled.div`
+  height: 2em;
+`;
+
+function Divider() {
+    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "80vw", maxWidth: 1100 }} />)
+}
+
+const PUBLIC_ASSETS_URL = "https://machinedreamsart.s3.amazonaws.com/public"
+
 function VideoPlayer() {
-  return (
-    <s.Screen>
-      <s.Container
-        flex={1}
-        // ai={"space-between"}
-        jc={"center"}
-        fd="row"
-      >
-          <StyledVidContainer>
-        <StyledVid
-            autoPlay
-            loop
-            muted
-            src="/config/videos/video128-slow2.mp4"
-            type="video/mp4"
-            borderRadius="0"
-            style={{
-            }}
-        />
-
-          </StyledVidContainer>
-      </s.Container>
-      <div style={{
-                // display: "flex",
-                color: "white",
-                padding: 120,
-                // width: "calc(100vw -120px)",
-                // backgroundColor: "red"
-            }}>
-                <p style={{
-                    fontSize: 70,
-                    fontFamily:"hairline",
-                    paddingBottom: 50,
-                }}>
-                    Machine Dreams
-                </p>
-                <s.Container
-        flex={1}
-        // ai={"space-between"}
-        jc={"center"}
-        fd="row"
-      >
-
-                <div style={{
-                     flex: 1,
-                     color: "white",
-                     hyphens: "auto",
-	textAlign: "justify"
-                    }}
-                    >
-
-                    <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                    MACHINE DREAMS is a series of three AI generated art collections placed on the Ethereum Network using the ERC-721 token standard:
-                    <ul>
-                    <li>
-                            Binary Machine Dreams – the base collection consisting of 128 pieces
-                        </li>
-                        <li>
-                            Fluid Machine Dreams – the secondary collection consisting of 8'128 pieces
-                        </li>
-                        <li>
-                            Lucid Machine Dream – the third collection consisting of one master piece
-                        </li>
-                    </ul>
-                    </p>
-                </div>
-                        <div style={{
-                     flexDirection: "columnn",
-                     flexShrink: 1,
-                     paddingLeft: 60,
-                    //  backgroundColor: "green",
-                    }}
-                    >
-                 {/* <p style={{
-                     fontSize: 30,
-                    fontFamily:"thin",
-                    // paddingTop: 60,
-                }}>
-
-                    Specifications
-                </p>
-                <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17, paddingTop: 20}}>
-Dimensions: 4096 x 4096
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Length: 256 seconds
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Color depth: 256 per channel
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Codec: h.264
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-Frame rate: 30 fps
-            </p> */}
-                 <p style={{
-                     fontSize: 30,
-                    fontFamily:"thin",
-                    // paddingTop: 60,
-                }}>
-
-                    Thanks To
-                </p>
-                <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17, paddingTop: 20}}>
-                Dmitriy Vecheruk
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Zisimos Charmpalis
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Marie Zedler
-            </p>
-            <p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                Antonio Civiletti
-            </p>
-        </div>
-        </s.Container>
-            </div>
-            <div style={{
-                // display: "flex",
-                color: "white",
-                padding: 120,
-                // width: "calc(100vw -120px)",
-                // backgroundColor: "red"
-            }}>
-                <p style={{
-                    fontSize: 70,
-                    fontFamily:"hairline",
-                    paddingBottom: 50,
-                }}>
-                    Utility
-                </p>
-                <s.Container
-        flex={1}
-        // ai={"space-between"}
-        jc={"center"}
-        fd="row"
-      >
-
-                <div style={{
-                     flex: 1,
-                     color: "white",
-                     hyphens: "auto",
-	textAlign: "justify"
-                    }}
-                    >
-
-<p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                    <p>
-                        For each pair of BINARY MACHINE DREAM token that you own you will be able to mint the corresponding FLUID MACHINE DREAM token for free.
-                        <br/>
-                        <br/>
-                    60% of the auctioned sale of the master piece LUCID MACHINE DREAM will go to the community.
-                Each member will receive ETH from the sale proportional to their BINARY & FLUID MACHINE DREAM holdings. To be precise, 30% of the profits will go to the BINARY MACHINE DREAMS holders and 30% to the FLUID MACHINE DREAMS holders.
-                        </p>
-                    </p>
-                </div>
-
-        </s.Container>
-            </div>
-            <div style={{
-                // display: "flex",
-                color: "white",
-                padding: 120,
-                // width: "calc(100vw -120px)",
-                // backgroundColor: "red"
-            }}>
-                <p style={{
-                    fontSize: 70,
-                    fontFamily:"hairline",
-                    paddingBottom: 50,
-                }}>
-                    Roadmap
-                </p>
-                <s.Container
-        flex={1}
-        // ai={"space-between"}
-        jc={"center"}
-        fd="row"
-      >
-
-                <div style={{
-                     flex: 1,
-                     color: "white",
-                     hyphens: "auto",
-	textAlign: "justify"
-                    }}
-                    >
-
-<p style={{lineHeight: "2em", fontFamily: "seriff", fontSize: 17}}>
-                    <p>
-                        For each pair of BINARY MACHINE DREAM token that you own you will be able to mint the corresponding FLUID MACHINE DREAM token for free.
-                        <br/>
-                        <br/>
-                    60% of the auctioned sale of the master piece LUCID MACHINE DREAM will go to the community.
-                Each member will receive ETH from the sale proportional to their BINARY & FLUID MACHINE DREAM holdings. To be precise, 30% of the profits will go to the BINARY MACHINE DREAMS holders and 30% to the FLUID MACHINE DREAMS holders.
-                        </p>
-                    </p>
-                </div>
-
-        </s.Container>
-            </div>
-      <div style={{height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "calc(100vw - 240px)", marginLeft: 120}}/>
-      <div style={{
-          display: "flex",
-          flex: 1,
-          flexDirection: "row",
-          color: "white",
-            padding: 120,
-            width: "100vw",
-            // paddingTop: 120,
-            // paddingBottom: 120,
-            // backgroundColor: "yellow",
-        }}
-        >
-      <div style={{
-          flexDirection: "columnn",
-        //   flex: 1,
-          marginRight: 30,
-          //  backgroundColor: "green",
-          // borderWidth: 2,
-          // borderColor: "white",
-          // borderStyle: "solid"
-          width: "calc(50vw - 90px)"
-        }}
-        >
-        <Link to="/binary" style={{textDecoration: "none", color: "white", display: "inline-block"}}>
-<p style={{fontFamily: "thin", fontSize: 30, marginBottom: 20}}>
-                Binary Machine Dreams
-            </p>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                }}
+    return (
+        <s.Screen id="home">
+            <s.Container
+                flex={1}
+                // ai={"space-between"}
+                jc={"center"}
+                fd="row"
             >
-            <StyledImg src={`/config/images/small/0.gif`} width={128} borderRadius="0" style={{marginRight: 30}}/>
-            <StyledImg src={`/config/images/small/1.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" hover />
+                <StyledVid
+                    autoPlay
+                    loop
+                    muted
+                    src={`${PUBLIC_ASSETS_URL}/lucid/video-sr-4k2.mp4`}
+                    type="video/mp4"
+                    borderRadius="0"
+                    style={{
+                        maxWidth: 1100,
+                        height: "calc(100vh - 80px)",
+                        marginTop: 80,
+                        width: "80vw"
+                    }}
+                />
+            </s.Container>
+            <SpacerL />
+            <s.Container
+                flex={1}
+                ai="center"
+                jc="center"
+                fd="column"
+                width="100%"
+            >
+                <div style={{
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexDirection: "column",
+                    maxWidth: 1100,
+                }}>
+                    <p style={{
+                        fontSize: 70,
+                        fontFamily: "hairline",
+                        paddingBottom: 50,
+                        color: "white"
+                    }}
+                        id="machinedreams"
+                    >
+                        Machine Dreams
+                    </p>
+                    <div style={{
+                        flex: 1,
+                        color: "white",
+                        // hyphens: "auto",
+                        textAlign: "justify",
+                    }}
+                    >
+                        <p style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                            MACHINE DREAMS is a series of three AI generated art collections placed on the Ethereum Network.
+                            <br />
+                            The ERC-721 based NFT collections leverage the hyperspace of the machine's mind displaying never-ending animations of dream characters.
+                            <br />
+                            The art pieces were generated by an AI algorithm trained on publicly available art images. Using the transfer learning technique, the mind of the machine learned to hallucinate obscure dream characters never seen before. In a final step, an AI powered super-resolution algorithm was applied to obtain visuals in the 8K ultra high definition format.
+                            {/* Three collections compromise the series: */}
+                            {/* <ul>
+                                <HoverLi>
+                                    <Link to="/binary" style={{ textDecoration: "none", color: "white" }}>
+                                        BINARY MACHINE DREAMS – the base collection consisting of 128 art pieces
+                                    </Link>
+                                </HoverLi>
+                                <HoverLi>
+                                    <Link to="/fluid" style={{ textDecoration: "none", color: "white" }}>
+                                        FLUID MACHINE DREAMS – the secondary collection consisting of 8'128 art pieces
+                                    </Link>
+                                </HoverLi>
+                                <HoverLi>
+                                    <Link to="/lucid" style={{ textDecoration: "none", color: "white" }}>
+                                        LUCID MACHINE DREAM – the final collection consisting of a single master piece
+                                    </Link>
+                                </HoverLi>
+                            </ul> */}
+                            <div style={{ marginTop: 40, display: "flex", flexDirection: "row", justifyContent: "space-between", lineHeight: "1.3em" }}>
+                                <div>
+                                    <Hover style={{ display: "flex", flexDirection: "column", justiyContent: "center", alignItems: "center", textAlign: "center" }}>
+                                        <Link to="/binary" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                            <div style={{ marginBottom: 14 }}>
+                                                <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`} width={96} borderRadius="0" style={{ marginRight: 30 }} />
+                                                <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={96} borderRadius="0" />
+                                            </div>
+                                            BINARY MACHINE DREAMS
+                                            <br />
+                                            <span style={{ fontSize: 13 }}>128 pieces</span>
+                                            {/* –
+                                        <br /> */}
+                                            {/* base collection
+                                        <br /> */}
+                                            {/* 96 art pieces */}
+                                        </Link>
+                                    </Hover>
+                                </div>
+                                <div>
+                                    <Hover style={{ display: "flex", flexDirection: "column", justiyContent: "center", alignItems: "center", textAlign: "center" }}>
+                                        <Link to="/fluid" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                            <div style={{ marginBottom: 14 }}>
+                                                <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`} width={96} borderRadius="0" style={{ marginRight: 30 }} />
+                                                <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={96} borderRadius="0" />
+                                            </div>
+                                            FLUID MACHINE DREAMS
+                                            <br />
+                                            <span style={{ fontSize: 13 }}>8,128 pieces</span>
+                                            {/* –
+                                        <br /> */}
+                                            {/* secondary collection
+                                        <br /> */}
+                                        </Link>
+                                        {/* 8'96 art pieces */}
+                                    </Hover>
+                                </div>
+                                <div>
+                                    <Hover style={{ display: "flex", flexDirection: "column", justiyContent: "center", alignItems: "center", textAlign: "center" }}>
+                                        <Link to="/lucid" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                            <div style={{ marginBottom: 14 }}>
+                                                <StyledImg src={`/config/images/small.gif`} width={96 / 9 * 16} borderRadius="0" />
+                                            </div>
+                                            LUCID MACHINE DREAM
+                                            <br />
+                                            {/* –
+                                        <br /> */}
+                                            {/* final collection
+                                        <br /> */}
+                                            <span style={{ fontSize: 13 }}>one piece</span>
+                                        </Link>
+                                    </Hover>
+                                </div>
+                            </div>
+                        </p>
                     </div>
-            </Link>
+                </div>
+            </s.Container>
+            <SpacerL id="utility" />
+            <s.Container
+                flex={1}
+                ai="center"
+                jc="center"
+                fd="column"
+                width="100%"
+            >
+                <div style={{
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexDirection: "column",
+                    maxWidth: 1100,
+                }}
+
+                >
+                    <p style={{
+                        fontSize: 70,
+                        fontFamily: "hairline",
+                        paddingBottom: 50,
+                        color: "white"
+                    }}
+                    >
+                        Utility
+                    </p>
+                    <div style={{
+                        flex: 1,
+                        color: "white",
+                        // hyphens: "auto",
+                        textAlign: "justify"
+                    }}
+                    >
+                        <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                            <p>
+                                <ul>
+                                    <li>
+
+                                        For each pair of <Hover><Link to="/binary" style={{ textDecoration: "none", color: "white" }}>BINARY MACHINE DREAMS</Link></Hover> tokens that you own you can mint the corresponding <Hover><Link to="/lucid" style={{ textDecoration: "none", color: "white" }}>LUCID MACHINE DREAM</Link></Hover> token for free
+                                    </li>
+                                    <li>
+                                        60% of the sale of the master piece <Hover><Link to="/lucid" style={{ textDecoration: "none", color: "white" }}>LUCID MACHINE DREAM</Link></Hover> will go to the community: 30% of the profits will go to <Hover><Link to="/binary" style={{ textDecoration: "none", color: "white" }}>BINARY MACHINE DREAMS</Link></Hover> holders and 30% to <Hover><Link to="/fluid" style={{ textDecoration: "none", color: "white" }}>FLUID MACHINE DREAMS</Link></Hover> holders
+                                    </li>
+                                    <li>
+                                        The future sales from the MACHINE DREAMS exhibitions in the Metaverse will go to the holders
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </s.Container>
+            <SpacerL id="roadmap" />
+            <s.Container
+                flex={1}
+                ai="center"
+                jc="center"
+                fd="column"
+                width="100%"
+            >
+                <div style={{
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexDirection: "column",
+                    maxWidth: 1100,
+                }}>
+                    <p style={{
+                        fontSize: 70,
+                        fontFamily: "hairline",
+                        color: "white",
+                        paddingBottom: 50,
+                    }}>
+                        Roadmap
+                    </p>
+
+                    <div style={{
+                        flex: 1,
+                        color: "white",
+                        // hyphens: "auto",
+                        textAlign: "justify"
+                    }}
+                    >
+
+                        <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                            <p style={{ paddingBottom: 10, textDecoration: "line-through" }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>10%</span> Creation of the AI generated art collections
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>30%</span> OGs and community build-up
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>40%</span> NFT ERC-721 smart contracts creation
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>50%</span> <Hover><Link to="/binary" style={{ textDecoration: "none", color: "white" }}>BINARY MACHINE DREAMS</Link></Hover> mint
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>60%</span>  <Hover><Link to="/fluid" style={{ textDecoration: "none", color: "white" }}>FLUID MACHINE DREAMS</Link></Hover> mint for <Hover><Link to="/binary" style={{ textDecoration: "none", color: "white" }}>BINARY MACHINE DREAMS</Link></Hover> holders
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>70%</span> <Hover><Link to="/fluid" style={{ textDecoration: "none", color: "white" }}>FLUID MACHINE DREAMS</Link></Hover> public mint
+                            </p>
+                            <p style={{ paddingBottom: 10 }}>
+                                <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>80%</span> Hosting of MACHINE DREAMS exhibitions in the Metaverse
+                            </p>
+                            <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: 100, display: "inline-block" }}>100%</span> <Hover><Link to="/lucid" style={{ textDecoration: "none", color: "white" }}>LUCID MACHINE DREAM</Link></Hover> public auction
+                        </div>
+                    </div>
+                </div>
+            </s.Container >
+            <SpacerL id="creator" />
+            <s.Container
+                flex={1}
+                ai="center"
+                jc="center"
+                fd="column"
+                width="100%"
+            >
+                <div style={{
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    maxWidth: 1100,
+                }}>
+                    <div style={{
+                        flexDirection: "columnn",
+                    }}>
+                        <p style={{
+                            fontSize: 70,
+                            fontFamily: "hairline",
+                            color: "white",
+                            paddingBottom: 50,
+                        }}>
+                            Creator
+                        </p>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            color: "white",
+                            lineHeight: "2em",
+                            fontFamily: "seriff",
+                            fontSize: 17,
+                        }}
+                        >
+                            <div style={{ marginRight: 30 }}>
+                                <p>
+                                    Orestis Zambounis (b. 1991, Basel, Switzerland) is a robotics & AI engineer, and pioneer in the visual aesthetics of machine intelligence. He currently resides in Barcelona, Spain, where he works remotely for <Hover><a href="https://www.seervision.com/" target="_blank" style={{ textDecoration: "none", color: "white", fontStyle: "italic" }}>Seervision</a></Hover>, a Swiss startup that creates innovative camera automation software to make live video production effortless.
+                                </p>
+                                <p>
+                                    Orestis is a pioneer in the world of rare digital art and crypto collectibles, minting his first NFT project <Hover><a href="https://www.anticryptopunks.com/" target="_blank" style={{ textDecoration: "none", color: "white", fontStyle: "italic" }}>Anti CryptoPunks</a></Hover> in December 2021. He creates unique NFT options: the utility-focused NFT base collection BINARY MACHINE DREAMS, the deriving project FLUID MACHINE DREAMS, and his public projection, LUCID MACHINE DREAM, which will mark the first time interpolated generative AI artworks to be offered to the public for sale.
+                                </p>
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", flexDirection: "column", }}>
+                                <StyledImg src={`/config/images/bw.jpeg`} width={150} borderRadius="0" />
+                                <div style={{ marginTop: 15 }}>
+                                    <Hover>
+                                        <a href="mailto:me@orestisz.com" target="_blank"><FontAwesomeIcon icon={faAt} color="white" /></a>
+                                    </Hover>
+                                    <FontAwesomeIcon icon={faAt} size="xl" color="transparent" />
+                                    <Hover>
+                                        <a href="https://orestisz.com" target="_blank"><FontAwesomeIcon icon={faHouse} color="white" /></a>
+                                    </Hover>
+                                    <FontAwesomeIcon icon={faAt} size="xl" color="transparent" />
+                                    <Hover>
+                                        <a href="http://linkedin.com/in/orestis-z" target="_blank"><FontAwesomeIcon icon={faLinkedin} color="white" /></a>
+                                    </Hover>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </s.Container >
+            <SpacerL />
+            <Divider />
+            <SpacerM />
+            <s.Container
+                flex={1}
+                ai="center"
+                jc="center"
+                fd="column"
+                width="100%"
+            >
+                <div style={{
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    maxWidth: 1100,
+                }}>
+                    <div style={{
+                        flexDirection: "columnn",
+                    }}>
+                        <Hover>
+                            <Link to="/binary" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                <p style={{ fontFamily: "thin", fontSize: 30, marginBottom: 20 }}>
+                                    Binary Machine Dreams
+                                </p>
+                                <div style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                >
+                                    <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`} width={88} borderRadius="0" style={{ marginRight: 26 }} />
+                                    <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={88} borderRadius="0" style={{ marginRight: 20 }} />
+                                    <StyledImg src={`/config/images/arrow-right.svg`} width={14} borderRadius="0" hover />
+                                </div>
+                            </Link>
+                        </Hover>
                     </div>
                     <div style={{
                         flexDirection: "columnn",
-                        marginLeft: 30,
                     }}
                     >
-                    <Link to="/fluid" style={{textDecoration: "none", color: "white", display: "inline-block"}}>
-<p style={{fontFamily: "thin", fontSize: 30, marginBottom: 20}}>
-                Fluid Machine Dreams
-            </p>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                // width: "calc(50vw - 90px)",
-                }}
-            >
-            <StyledImg src={`/config/images/favpairs/509.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/favpairs/391.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" hover />
+                        <Hover>
+                            <Link to="/fluid" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                <p style={{ fontFamily: "thin", fontSize: 30, marginBottom: 20 }}>
+                                    Fluid Machine Dreams
+                                </p>
+                                <div style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    // width: "calc(50vw - 90px)",
+                                }}
+                                >
+                                    <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`} width={88} borderRadius="0" style={{ marginRight: 26 }} />
+                                    <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={88} borderRadius="0" style={{ marginRight: 20 }} />
+                                    <StyledImg src={`/config/images/arrow-right.svg`} width={14} borderRadius="0" hover />
+                                </div>
+                            </Link>
+                        </Hover>
                     </div>
-            </Link>
+                    <div style={{
+                        flexDirection: "columnn",
+                    }}
+                    >
+                        <Hover>
+                            <Link to="/fluid" style={{ textDecoration: "none", color: "white", display: "inline-block" }}>
+                                <p style={{ fontFamily: "thin", fontSize: 30, marginBottom: 20 }}>
+                                    Lucid Machine Dream
+                                </p>
+                                <div style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    // width: "calc(50vw - 90px)",
+                                }}
+                                >
+                                    <StyledImg src={`/config/images/small.gif`} width={88 / 9 * 16} borderRadius="0" style={{ marginRight: 20 }} />
+                                    <StyledImg src={`/config/images/arrow-right.svg`} width={14} borderRadius="0" hover />
+                                </div>
+                            </Link>
+                        </Hover>
                     </div>
                 </div>
-                <div style={{height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "calc(100vw - 240px)", marginLeft: 120}}/>
-    </s.Screen>
-  );
+            </s.Container >
+            <SpacerM />
+            <Divider />
+            <SpacerXS />
+        </s.Screen >
+    );
 }
 
 export default VideoPlayer;

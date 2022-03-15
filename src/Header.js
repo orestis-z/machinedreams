@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import styled from "styled-components";
+import { HashLink } from 'react-router-hash-link';
+
 
 
 export const Hover = styled.div`
@@ -13,82 +15,92 @@ export const Hover = styled.div`
 `;
 
 
-function Header({hover}) {
+function Header({ hover }) {
     return (
-        <div style={{height: 80,
+        <div style={{
+            height: 80,
             position: "fixed",
             top: 0,
             zIndex: 2,
             width: "100%",
-            paddingLeft: 120,
-            paddingRight: 120,
-            paddingTop: 10,
-            paddingBottom: 10,
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between"
-        }}>
-        <Link to="/" style={{
-            textDecoration: 'none',
+            justifyContent: "center"
         }}>
             <div style={{
-                backgroundColor: "black",
-                color: "white",
-                paddingRight: 10,
+                width: "100%",
+                maxWidth: 1100,
+                width: "80%",
+                paddingTop: 10,
+                paddingBottom: 10,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
             }}>
-                <p style={{
-                    fontSize: 40,
-                    fontFamily:"thin",
-                }}>
-                    Machine Dreams
-                </p>
-                <p style={{
-                    paddingLeft: 1,
-                    fontFamily:"light",
-                    fontSize: 20,
-                    // fontSize: 14,
+                <Hover>
+                    <HashLink to="/#home" style={{
+                        textDecoration: 'none',
                     }}>
-                    by Orestis Zambounis
-                </p>
+                        <div style={{
+                            backgroundColor: "black",
+                            color: "white",
+                            paddingRight: 10,
+                        }}>
+                            <p style={{
+                                fontSize: 40,
+                                fontFamily: "thin",
+                            }}>
+                                Machine Dreams
+                            </p>
+                            <p style={{
+                                paddingLeft: 1,
+                                fontFamily: "light",
+                                fontSize: 20,
+                                // fontSize: 14,
+                            }}>
+                                by Orestis Zambounis
+                            </p>
+                        </div>
+                    </HashLink>
+                </Hover>
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                }}>
+                    <Hover>
+                        <HashLink className="link" to="#utility">Utility</HashLink>
+                    </Hover>
+                    <Hover>
+                        <HashLink className="link" to="#roadmap">Roadmap</HashLink>
+                    </Hover>
+                    <Hover>
+                        <Link className="link" to="/binary">Binary</Link>
+                    </Hover>
+                    <Hover>
+                        <Link className="link" to="/fluid">Fluid</Link>
+                    </Hover>
+                    <Hover>
+                        <Link className="link" to="/lucid">Lucid</Link>
+                    </Hover>
+                    <Hover>
+                        <HashLink className="link" to="#creator">Creator</HashLink>
+                    </Hover>
+                    <div>
+                        <Hover>
+                            <a href="https://twitter.com" target="_blank"><FontAwesomeIcon icon={faTwitter} color="white" /></a>
+                        </Hover>
+                        <FontAwesomeIcon icon={faTwitter} size="xs" />
+                        <Hover>
+                            <a href="https://discord.com" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white" /></a>
+                        </Hover>
+                        <FontAwesomeIcon icon={faTwitter} size="xs" />
+                        <Hover>
+                            <a href="https://instagram.com" target="_blank"><FontAwesomeIcon icon={faInstagram} color="white" /></a>
+                        </Hover>
+                    </div>
+                </div>
             </div>
-        </Link>
-        <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between"
-        }}>
-            <Hover>
-                    <Link className="link" to="/utility">Utility</Link>
-                </Hover>
-                <Hover>
-                    <Link className="link" to="/roadmap">Roadmap</Link>
-                </Hover>
-                <Hover>
-                    <Link className="link" to="/binary">Binary</Link>
-                </Hover>
-                <Hover>
-                    <Link className="link" to="/fluid">Fluid</Link>
-                </Hover>
-                <Hover>
-                    <Link className="link" to="/lucid">Lucid</Link>
-                </Hover>
-                <Hover>
-                    <Link className="link" to="/about">Creator</Link>
-                </Hover>
-            <div>
-                <Hover>
-                    <a href="https://twitter.com" target="_blank"><FontAwesomeIcon icon={faTwitter} color="white"/></a>
-                </Hover>
-                    <FontAwesomeIcon icon={faTwitter} size="xs"/>
-                <Hover>
-                    <a href="https://discord.com" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white"/></a>
-                </Hover>
-                    <FontAwesomeIcon icon={faTwitter} size="xs"/>
-                <Hover>
-                    <a href="https://instagram.com" target="_blank"><FontAwesomeIcon icon={faInstagram} color="white"/></a>
-                </Hover>
-            </div>
-        </div>
         </div>
     )
 }
