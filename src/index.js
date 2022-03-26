@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Mint from "./Mint";
+// import Mint from "./Mint";
 import Header from "./Header"
 import Footer from "./Footer"
 import Home from "./Home"
-import Lucid from "./Lucid"
-import Binary from "./Binary"
+// import Lucid from "./Lucid"
+// import Binary from "./Binary"
+import Terms from "./Terms"
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -21,7 +22,7 @@ ReactDOM.render(
       <BrowserRouter>
       <Header/>
         <Routes>
-        <Route path="/mint-bmd" element={
+        {/* <Route path="/mint-bmd" element={
             <Mint
                 title="Binary Machine Dreams"
                 tokenConfig={`/config/config-bmd.${process.env.NODE_ENV}.json`}
@@ -34,10 +35,11 @@ ReactDOM.render(
                 tokenConfig={`/config/config-fmd.${process.env.NODE_ENV}.json`}
                 abi={`/config/abi-fmd.${process.env.NODE_ENV}.json`}
                 />}
-            />
+            /> */}
         <Route path="/" element={<Home />}></Route>
-        <Route path="/binary" element={<Binary />}></Route>
-        <Route path="/lucid" element={<Lucid />}></Route>
+        <Route path="/terms" element={<Terms />}></Route>
+        {/* <Route path="/binary" element={<Binary />}></Route>
+        <Route path="/lucid" element={<Lucid />}></Route> */}
         </Routes>
       <Footer/>
       </BrowserRouter>

@@ -153,7 +153,6 @@ function App(props) {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Max mint per TX – 4`);
   const [mintAmount, setMintAmount] = useState(1);
-  const { height, width } = useWindowDimensions();
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",

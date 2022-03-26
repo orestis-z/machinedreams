@@ -154,10 +154,24 @@ table {
 }
 
 @font-face {
-    font-family: "seriff";
     src: url(seriff-regular-webfont.woff) format("woff");
+    font-family: "seriff";
+    font-weight: normal;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: "seriff";
+    src: url(seriff-heavy-webfont.woff) format("woff");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Font Awesome 6 Pro";
+    src: url(fa-light-300.woff2) format("woff2");
+    font-weight: 100;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Nunito+Sans:wght@200&family=Rubik:ital@0;1&display=swap');
 
@@ -214,10 +228,158 @@ div {
     transition: 0.2s;
     color: white;
     text-decoration: none;
-    padding-right: 20px;
+}
+
+.mr {
+    margin-right: 20px;
+}
+
+.ml {
+    margin-left: 20px;
 }
 
 .link:hover {
     opacity: 0.67;
     /* text-decoration: underline; */
+}
+
+.fa-thin, .fat {
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 100;
+}
+
+.fa-user:before {
+    content: "\f007";
+}
+
+.fa-bars:before {
+    content: "\f0c9";
+}
+
+.fa-xmark:before {
+    content: "\f00d";
+}
+
+.mailchimp {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    line-height: 140%;
+    border-width: 2px;
+    border-color: white;
+    border-style: solid;
+}
+
+.mailchimp input {
+    max-width: 350px;
+    width: 40vw;
+    height: 1.6em;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    border-style: none;
+    outline: none;
+    padding: 0.5em;
+    font-family: regular, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mailchimp button {
+    text-align: center;
+    cursor: pointer;
+    font-family: regular, sans-serif;
+    background-color: white;
+    color: black;
+    border-style: none;
+    padding: 0.5em 1.6em;
+    font-size: 20px;
+}
+
+@media (max-width: 480px) {
+.mailchimp button {
+    padding: 0.5em 1em;
+}}
+
+.mailchimp ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+    font-family: regular, sans-serif;
+    font-weight: normal;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.loader-hidden {
+    opacity: 0;
+    transition: 400ms;
+    display: none !important;
+}
+
+.menu {
+    transition: 2000ms;
+}
+
+.menu-hidden {
+    opacity: 0;
+    display: none !important;
+}
+
+.menu-shown {
+    opacity: 1;
 }
