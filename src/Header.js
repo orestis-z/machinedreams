@@ -41,8 +41,9 @@ function useWindowDimensions() {
 
 
 function Header() {
-    const {width} = useWindowDimensions();
+    const {width, height} = useWindowDimensions();
     const [showMenu, setMenu] = useState(false);
+    document.body.style.overflow = showMenu ? 'hidden' : 'unset';
     return (
         <div style={{
             height: 80,
@@ -57,7 +58,7 @@ function Header() {
             <div style={{
                 width: "100%",
                 maxWidth: 1000,
-                width: "80%",
+                width: "90%",
                 paddingTop: 10,
                 paddingBottom: 10,
                 display: "flex",
@@ -147,13 +148,15 @@ function Header() {
                             width: "100vw",
                             backgroundColor: "black",
                             position: "fixed",
-                            top: 0,
+                            top: `calc((${height}px - 100vh) / 2)`,
+                            bottom: `calc((100vh - ${height}px) / 2)`,
                             left: 0,
+                            right: 0,
                             zIndex: 10,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            flexDirection: "column"
+                            flexDirection: "column",
                         }}
                         className={`menu ${showMenu ? 'menu-shown' : 'menu-hidden'}`}
                     >
@@ -161,6 +164,7 @@ function Header() {
                             style={{
                                 marginBottom: 40,
                                 fontSize: 30,
+                                fontFamily: "regular"
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
@@ -170,6 +174,7 @@ function Header() {
                             style={{
                                 marginBottom: 40,
                                 fontSize: 30,
+                                fontFamily: "regular"
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
@@ -179,6 +184,7 @@ function Header() {
                             style={{
                                 marginBottom: 40,
                                 fontSize: 30,
+                                fontFamily: "regular"
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
@@ -188,6 +194,7 @@ function Header() {
                             style={{
                                 marginBottom: 70,
                                 fontSize: 30,
+                                fontFamily: "regular"
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
@@ -214,7 +221,7 @@ function Header() {
                         >
                             <i
                                 class="fat fa-xmark"
-                                style={{fontSize: width < 500 ? 40 : 50, color: "white"}}
+                                style={{fontSize: 40, color: "white"}}
                             />
                         </Hover>
                     </div>}

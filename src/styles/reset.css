@@ -271,8 +271,8 @@ div {
 }
 
 .mailchimp input {
-    max-width: 350px;
-    width: 40vw;
+    max-width: 300px;
+    width: 52.5vw;
     height: 1.6em;
     background-color: transparent;
     color: rgba(255, 255, 255, 0.9);
@@ -372,7 +372,7 @@ div {
 }
 
 .menu {
-    transition: 2000ms;
+    transition: 1000ms;
 }
 
 .menu-hidden {
@@ -382,4 +382,8 @@ div {
 
 .menu-shown {
     opacity: 1;
+}
+
+.vp-unmute {
+    display: none !important;
 }

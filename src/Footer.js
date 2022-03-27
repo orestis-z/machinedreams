@@ -23,7 +23,7 @@ export const SpacerXS = styled.div`
 `;
 
 function Divider() {
-    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "80vw", maxWidth: 1100 }} />)
+    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "90vw", maxWidth: 1000 }} />)
 }
 
 

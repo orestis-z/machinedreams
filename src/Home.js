@@ -8,20 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faHouse } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import ReactPlayer from 'react-player/lazy'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+const Image = function(props) {return <LazyLoadImage {...props} threshold={1000}/>}
 
 
 export const StyledVid = styled.video`
   background-color: black;
-  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 5)}%;
+  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 0)}%;
   transition: width 0.5s;
-`;
-
-export const StyledImg = styled.img`
-  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 5)}%;
-  transition: width 0.5s, opacity 0.2s;
-  :hover {
-    opacity: ${({ hover }) => (hover ? 0.7 : 1)};
-  }
 `;
 
 const MAX_LOADING_TIME = 3;
@@ -68,6 +63,7 @@ export const HL = styled.span`
 //   text-decoration: underline;
 //   font-style: italic;
   font-weight: bold;
+
 `
 
 const LINKS_OFF = true;
@@ -95,15 +91,54 @@ function useWindowDimensions() {
     return windowDimensions;
 }
 
+function useScrollPosition() {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    return scrollPosition;
+}
+
+
+function ArrowDown({onClick, style}) {
+    // const position = useScrollPosition();
+    // console.log(position)
+    // if (position > 200)
+    //     return null;
+    return (
+        <Hover
+            onClick={onClick}
+            style={{cursor: "pointer"}}
+        >
+            <Image
+                src={`/config/images/arrow-right.svg`}
+                width={23}
+                style={style}
+            />
+        </Hover>
+    )
+}
+
+
 function Divider() {
-    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "80vw", maxWidth: 1000 }} />)
+    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "90vw", maxWidth: 1000 }} />)
 }
 
 const PUBLIC_ASSETS_URL = "https://machinedreamsart.s3.amazonaws.com/public"
 
 function Home() {
     const [loading, setLoading] = useState(true);
-    const {width} = useWindowDimensions();
+    const {width, height} = useWindowDimensions();
+    let showDownArrow = width < height;
     setTimeout(() => setLoading(false), MAX_LOADING_TIME * 1000);
     return (
         <>
@@ -114,8 +149,10 @@ function Home() {
                 width: "100vw",
                 backgroundColor: "black",
                 position: "fixed",
-                top: 0,
+                top: `calc((${height}px - 100vh) / 2)`,
+                bottom: `calc((100vh - ${height}px) / 2)`,
                 left: 0,
+                right: 0,
                 zIndex: 10,
                 display: "flex",
                 alignItems: "center",
@@ -127,7 +164,6 @@ function Home() {
                 console.log(id)
                 if (id == "transition-loader")
                     setLoading(false);
-                // event.stopPropagation()
             }}
             >
                 <div class="loader">Loading...</div>
@@ -135,51 +171,35 @@ function Home() {
             <s.Screen id="home">
                 <s.Container
                     flex={1}
-                    // ai={"space-between"}
-                    jc={"center"}
-                    fd="row"
+                    jc="center"
+                    fd="column"
+                    ai="center"
                 >
-                    {/* <StyledVid
-                        autoPlay
-                        loop
-                        muted
-                        src={`${PUBLIC_ASSETS_URL}/lucid/video-sr-4k.mp4`}
-                        type="video/mp4"
-                        borderRadius="0"
-                        style={{
-                            maxWidth: 1000,
-                            height: "calc(100vh - 80px)",
-                            marginTop: 80,
-                            width: "80vw"
-                        }}
-                    /> */}
-                    {/* <StyledImg
-                        src="/config/videos/10000.png"
-                        type="video/mp4"
-                        borderRadius="0"
-                        style={{
-                            maxWidth: 1000,
-                            height: "calc(100vh - 80px)",
-                            marginTop: 80,
-                            width: "80vw"
-                        }}
-                    /> */}
                     <ReactPlayer
                         url='https://vimeo.com/690681684'
                         playing
                         loop
                         muted
-                        height="calc(100vh - 80px)"
-                        width={width > 800 ? Math.min(0.8 * width, 1000) : width}
+                        height={height - 80}
+                        width={width > 800 ? Math.min(0.9 * width, 1000) : width}
                         style={{
                             maxWidth: 1000,
                             marginTop: 80,
-                            borderWidth: 2,
-                            // borderStyle: "solid",
-                            // borderColor: "white",
+                            paddingTop: `calc((100vh - ${height}px - ${showDownArrow ? 33 : 0}px))`,
+                            paddingBottom: `calc(100vh - ${height}px + ${showDownArrow ? 33 : 0}px)`,
+                            transition: "1000ms"
                         }}
                         onStart={() => setLoading(false)}
                     />
+                    {showDownArrow ? <ArrowDown
+                        onClick={() => window.scrollTo({top: height})}
+                        style={{
+                            position: "absolute",
+                            transform: 'rotate(90deg)',
+                            width: 23,
+                            bottom: 20,
+                        }}
+                    /> : null}
                 </s.Container>
                 <SpacerL />
                 <s.Container
@@ -190,14 +210,14 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "flex-start",
                         flexDirection: "column",
                         maxWidth: 1000,
                     }}>
                         <p style={{
-                            fontSize: 70,
+                            fontSize: width > 800 ? 70 : 50,
                             fontFamily: "thin",
                             color: "white",
                             textDecoration: "underline",
@@ -219,53 +239,24 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "flex-start",
                         flexDirection: "column",
                         maxWidth: 1000,
                     }}>
-                        <p style={{
-                            // fontSize: 70,
-                            fontFamily: "hairline",
-                            // paddingBottom: 50,
-                            color: "white"
-                        }}
-                            id="machinedreams"
-                        >
-                            {/* Machine Dreams */}
-                        </p>
                         <div style={{
                             flex: 1,
                             color: "white",
-                            // hyphens: "auto",
                             textAlign: "justify",
                         }}
                         >
-                            <p style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                            <p style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: width > 800 ? 17 : 15, }}>
                                 MACHINE DREAMS is a series of <HL>three AI generated art collections</HL> placed on the <HL>Ethereum</HL> network.
                                 <br />
                                 The ERC-721 based <HL>NFT</HL> collections leverage the hyperspace of the machine's mind displaying never-ending movements of dream characters in <HL>60 fps</HL>.
                                 <br />
-                                The art pieces were generated by a <HL>GAN algorithm</HL> trained on publicly available art images. Using the transfer learning technique, the mind of the machine learned to hallucinate obscure dream characters never seen before. In a final step, an AI powered <HL>super-resolution algorithm</HL> was applied to obtain visuals in the <HL>7K ultra high definition format</HL>.
-                                {/* Three collections compromise the series: */}
-                                {/* <ul>
-                                    <HoverLi>
-                                        <Link to="/binary" style={{ textDecoration: "none", color: "white" }}>
-                                            BINARY MACHINE DREAMS – the base collection consisting of 128 art pieces
-                                        </Link>
-                                    </HoverLi>
-                                    <HoverLi>
-                                        <Link to="/fluid" style={{ textDecoration: "none", color: "white" }}>
-                                            FLUID MACHINE DREAMS – the secondary collection consisting of 8,128 art pieces
-                                        </Link>
-                                    </HoverLi>
-                                    <HoverLi>
-                                        <Link to="/lucid" style={{ textDecoration: "none", color: "white" }}>
-                                            LUCID MACHINE DREAM – the final collection consisting of a single master piece
-                                        </Link>
-                                    </HoverLi>
-                                </ul> */}
+                                The art pieces were generated by an <HL>GAN algorithm</HL> trained on publicly available art images. Using the transfer learning technique, the mind of the machine learned to hallucinate obscure dream characters never seen before. In a final step, an AI powered <HL>super-resolution algorithm</HL> was applied to obtain visuals in the <HL>7K ultra high definition format</HL>.
                                 <div style={{ marginTop: 40, display: "flex", flexDirection: width > 1200 ? "row" : "column", justifyContent: "space-between", lineHeight: "1.3em" }}>
                                     <div>
                                         <Hover
@@ -273,30 +264,25 @@ function Home() {
                                         style={{ display: "flex", flexDirection: "column", justiyContent: "center", alignItems: "center", textAlign: "center" }}>
                                             <Link to="/binary" style={{ textDecoration: "none", color: "white", display: "inline-block", pointerEvents: LINKS_OFF ? "none" : "auto", marginBottom: width > 1200 ? 0 : width > 800 ? 80 : 30, marginTop: width > 1200 ? 0 : width > 800 ? 80 : 30 }}>
                                                 <div style={{ marginBottom: width > 1200 ? 14 : width > 800 ? 35 : 10 }}>
-                                                    <StyledImg
+                                                    <Image
                                                         src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`}
-                                                        borderRadius="0"
+
                                                         style={{
                                                             marginRight: width > 1200 ? 27 : width > 800 ? 50 : 20,
-                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((80vw - 20px) / 2)"
+                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((90vw - 20px) / 2)"
                                                         }}
                                                     />
-                                                    <StyledImg
+                                                    <Image
                                                                                                                 src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`}
-                                                        borderRadius="0"
+
                                                         style={{
-                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((80vw - 20px) / 2)"
+                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((90vw - 20px) / 2)"
                                                         }}
                                                     />
                                                 </div>
                                                 BINARY MACHINE DREAMS
                                                 <br />
-                                                <span style={{ fontSize: 13 }}>128 pieces</span>
-                                                {/* –
-                                            <br /> */}
-                                                {/* base collection
-                                            <br /> */}
-                                                {/* 96 art pieces */}
+                                                <span style={{ fontSize: width > 800 ? 13 : 12 }}>128 pieces</span>
                                             </Link>
                                         </Hover>
                                     </div>
@@ -309,31 +295,26 @@ function Home() {
                                                 style={{ textDecoration: "none", color: "white", display: "inline-block", pointerEvents: LINKS_OFF ? "none" : "auto", marginBottom: width > 1200 ? 0 : width > 800 ? 80 : 30, marginTop: width > 1200 ? 0 : width > 800 ? 80 : 30 }}
                                             >
                                                 <div style={{ marginBottom: width > 1200 ? 14 : width > 800 ? 35 : 10 }}>
-                                                    <StyledImg
+                                                    <Image
                                                         src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`}
-                                                        borderRadius="0"
+
                                                         style={{
                                                             marginRight: width > 1200 ? 27 : width > 800 ? 50 : 20,
-                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((80vw - 20px) / 2)"
+                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((90vw - 20px) / 2)"
                                                         }}
                                                     />
-                                                    <StyledImg
+                                                    <Image
                                                         src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`}
                                                         style={{
-                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((80vw - 20px) / 2)"
+                                                            width: width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : "calc((90vw - 20px) / 2)"
                                                         }}
-                                                        borderRadius="0"
+
                                                     />
                                                 </div>
                                                 FLUID MACHINE DREAMS
                                                 <br />
-                                                <span style={{ fontSize: 13 }}>8,128 pieces</span>
-                                                {/* –
-                                            <br /> */}
-                                                {/* secondary collection
-                                            <br /> */}
+                                                <span style={{ fontSize: width > 800 ? 13 : 12 }}>8,128 pieces</span>
                                             </Link>
-                                            {/* 8'96 art pieces */}
                                         </Hover>
                                     </div>
                                     <div>
@@ -342,23 +323,19 @@ function Home() {
                                         style={{ display: "flex", flexDirection: "column", justiyContent: "center", alignItems: "center", textAlign: "center" }}>
                                             <Link to="/lucid" style={{ textDecoration: "none", color: "white", display: "inline-block", pointerEvents: LINKS_OFF ? "none" : "auto"}}>
                                                 <div style={{ marginBottom: width > 1200 ? 14 : width > 800 ? 35 : 10 }}>
-                                                    {/* <StyledImg src={`/config/images/small.gif`} width={96 / 9 * 16} borderRadius="0" /> */}
+                                                    {/* <Image src={`/config/images/small.gif`} width={96 / 9 * 16}  /> */}
                                                     <ReactPlayer
                                                         url='https://vimeo.com/690681684'
                                                         playing
                                                         loop
                                                         muted
-                                                        height={width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : ((0.8 * width - 20) / 2)}
-                                                        width={(width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : ((0.8 * width - 20) / 2)) / 9 * 16}
+                                                        height={width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : ((0.9 * width - 20) / 2)}
+                                                        width={(width > 1200 ? 135 : width > 800 ? 256 : width > 600 ? 192 : ((0.9 * width - 20) / 2)) / 9 * 16}
                                                     />
                                                 </div>
                                                 LUCID MACHINE DREAM
                                                 <br />
-                                                {/* –
-                                            <br /> */}
-                                                {/* final collection
-                                            <br /> */}
-                                                <span style={{ fontSize: 13 }}>one piece</span>
+                                                <span style={{ fontSize: width > 800 ? 13 : 12 }}>one piece</span>
                                             </Link>
                                         </Hover>
                                     </div>
@@ -376,7 +353,7 @@ function Home() {
 
                 >
                     <div  style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         alignItems: "center",
                         flexDirection: width > 1000 ? "row" : "column",
@@ -401,7 +378,7 @@ function Home() {
                         <div style={{
                             lineHeight: "2em",
                             fontFamily: "seriff",
-                            fontSize: 17,
+                            fontSize: width > 800 ? 17 : 15,
                             color: "white",
                             marginRight: width > 1000 ? 55 : 0,
                             textAlign: width > 1000 ? "justify" : "center",
@@ -440,7 +417,7 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "flex-start",
                         flexDirection: "column",
@@ -449,7 +426,7 @@ function Home() {
 
                     >
                         <p style={{
-                            fontSize: 70,
+                            fontSize: width > 800 ? 70 : 50,
                             fontFamily: "hairline",
                             paddingBottom: 50,
                             color: "white"
@@ -460,11 +437,10 @@ function Home() {
                         <div style={{
                             flex: 1,
                             color: "white",
-                            // hyphens: "auto",
                             textAlign: "justify"
                         }}
                         >
-                            <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                            <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: width > 800 ? 17 : 15, }}>
                                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <div>
                                         <p>
@@ -474,7 +450,7 @@ function Home() {
                                                 The project's smart contract is designed to <HL>reward the early believers</HL> of the project. Holders of art pieces from the first collection will be able to mint parts of the second collection for <HL>free</HL>. Lastly, <HL>60% of the profits</HL> of the final masterpiece will be <HL>distributed to the holders</HL> of the first two collections.
                                         </p>
                                         <p style={{
-                                            fontSize: 60,
+                                            fontSize: width > 800 ? 60 : 45,
                                             fontFamily: "thin",
                                             color: "white",
                                             textDecoration: "underline",
@@ -488,7 +464,7 @@ function Home() {
                                             Merge Two Tokens and Create a New One
                                         </p>
                                         <p>
-                                                You can combine two <Hover off={LINKS_OFF}><Link to="/binary" style={{ textDecoration: "none", color: "white", pointerEvents: LINKS_OFF ? "none" : "auto" }}>BINARY MACHINE DREAM</Link></Hover> tokens and unlock the interpolated <Hover off={LINKS_OFF}><Link to="/lucid" style={{ textDecoration: "none", color: "white", pointerEvents: LINKS_OFF ? "none" : "auto" }}>LUCID MACHINE DREAM</Link></Hover> token at no additional cost:
+                                                You can combine two <HoverA off={LINKS_OFF}><Link to="/binary" style={{ textDecoration: "none", color: "white", pointerEvents: LINKS_OFF ? "none" : "auto" }}>BINARY MACHINE DREAM</Link></HoverA> tokens and unlock the interpolated <HoverA off={LINKS_OFF}><Link to="/lucid" style={{ textDecoration: "none", color: "white", pointerEvents: LINKS_OFF ? "none" : "auto" }}>LUCID MACHINE DREAM</Link></HoverA> token at no additional cost:
                                         </p>
 
                                     </div>
@@ -497,17 +473,17 @@ function Home() {
                                         <div style={{display: "flex", alignItems: "center", marginBottom: 40, marginTop: 18}}>
                                             <div style={{display: "flex", flexDirection: "column", marginRight: 30, alignItems: "center"}}>
                                                     <p style={{color: "transparent", userSelect: "none"}}>BINARY</p>
-                                                <StyledImg
+                                                <Image
                                                     src={`${PUBLIC_ASSETS_URL}/binary/small/5.gif`}
-                                                    borderRadius="0"
+
                                                     style={{
                                                         marginBottom: 10,
                                                         width: 150,
                                                     }}
                                                 />
-                                                <StyledImg
+                                                <Image
                                                     src={`${PUBLIC_ASSETS_URL}/binary/small/43.gif`}
-                                                     borderRadius="0"
+
                                                      style={{
                                                         marginTop: 10,
                                                         marginBottom: 10,
@@ -516,21 +492,19 @@ function Home() {
                                                     <p>BINARY pair</p>
                                         </div>
                                         <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginRight: 30}}>
-                                            <StyledImg
+                                            <Image
                                                 src={`/config/images/arrow-right.svg`}
-                                                borderRadius="0"
+
                                                 style={{ width: 30 }}
                                             />
-                                            {/* <p style={{fontStyle: "italic", fontSize: 13}}>merge</p> */}
                                         </div>
                                         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                                             <p style={{color: "transparent", userSelect: "none"}}>FLUID</p>
-                                            <StyledImg
-                                                src={`/config/images/favpairs/662.gif`}
-                                                borderRadius="0"
-                                                style={{ marginBottom: 10, width: 256 }}
+                                            <Image
+                                                src={`${PUBLIC_ASSETS_URL}/fluid/medium/662-opt.gif`}
+
+                                                style={{marginBottom: 10, width: 250 }}
                                             />
-                                            {/* <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/662.gif`} width={256} height={256} borderRadius="0" style={{ marginBottom: 10 }} /> */}
                                              <p>FLUID result</p>
                                         </div>
                                     </div>
@@ -549,53 +523,51 @@ function Home() {
                                                 alignItems: "center",
                                                 marginTop: 5,
                                             }}>
-                                                <StyledImg
+                                                <Image
                                                     src={`${PUBLIC_ASSETS_URL}/binary/small/5.gif`}
-                                                    borderRadius="0"
+
                                                     style={{
                                                         marginRight: 10,
-                                                        width: "calc((80vw - 20px) / 2)",
+                                                        width: "calc((90vw - 20px) / 2)",
                                                     }}
                                                 />
-                                                <StyledImg
+                                                <Image
                                                     src={`${PUBLIC_ASSETS_URL}/binary/small/43.gif`}
-                                                     borderRadius="0"
+
                                                      style={{
                                                         marginLeft: 10,
-                                                        width: "calc((80vw - 20px) / 2)",
+                                                        width: "calc((90vw - 20px) / 2)",
                                                     }} />
                                         </div>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "center",
-                                            marginBottom: 15,
+                                            marginBottom: 10,
                                             marginTop: 15,
                                         }}>
-                                            <StyledImg
+                                            <Image
                                                 src={`/config/images/arrow-right.svg`}
-                                                borderRadius="0"
+
                                                 style={{
                                                     width: 30,
                                                     transform: "rotate(90deg)"
                                                 }}
                                             />
-                                            {/* <p style={{fontStyle: "italic", fontSize: 13}}>merge</p> */}
                                         </div>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "center"
                                         }}>
-                                            <StyledImg
-                                                src={`/config/images/favpairs/662.gif`}
-                                                borderRadius="0"
+                                            <Image
+                                                src={`${PUBLIC_ASSETS_URL}/fluid/medium/662-opt.gif`}
                                                 style={{
                                                     marginBottom: 10,
-                                                    width: "calc(min(80vw - 20px), 256px)",
+                                                    width: "calc(min(90vw, 300px, (90vw - 20px) / 1.5))",
+                                                    height: "calc(min(90vw, 300px, (90vw - 20px) / 1.5))",
                                                 }}
                                             />
-                                            {/* <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/662.gif`} width={256} height={256} borderRadius="0" style={{ marginBottom: 10 }} /> */}
                                              <p>FLUID result</p>
                                         </div>
                                     </div>
@@ -606,7 +578,7 @@ function Home() {
                                         <br/>
                                         The mint price for the BINARY tokens will be <HL>0.16 ETH</HL>. This means that if you own 5 BINARY tokens you can mint 10 FLUID tokens for free and equalize the public mint price.
                                         <br/>
-                                        <p style={{fontStyle: "italic", fontSize: 13, lineHeight: "1.6em", marginTop: 5}}>*The amount of freely mintable FLUID tokens as a function of BINARY tokens owned can be calculated using the formula n(n-1)/2.
+                                        <p style={{fontStyle: "italic", fontSize: width > 800 ? 13 : 12, lineHeight: "1.6em", marginTop: 5}}>*The amount of freely mintable FLUID tokens as a function of BINARY tokens owned can be calculated using the formula n(n-1)/2.
                                         This means that for 2 BINARY tokens owned you can mint 1 FLUID token for free, with 3 3, with 4 6, with 5 10, with 6 15, etc. This functionality will be enforced in the FLUID smart contract. Please note that gas fees will occur during the free mint.
                                         </p>
                                         </p>
@@ -614,7 +586,7 @@ function Home() {
 
                                 <div>
                                     <p style={{
-                                        fontSize: 60,
+                                        fontSize: width > 800 ? 60 : 45,
                                         fontFamily: "thin",
                                         color: "white",
                                         textDecoration: "underline",
@@ -668,12 +640,12 @@ function Home() {
                                                                     <i class="fat fa-user" style={{fontSize: 19, marginRight: 10}}/>
                                                                     <i class="fat fa-user" style={{fontSize: 19, marginRight: 10}}/>
                                                                     {/* <i class="fat fa-user" style={{fontSize: 19}}/> */}
-                                                                    {/* <StyledImg src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/asexual.svg" style={{ width: 15  }}/> */}
+                                                                    {/* <Image src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/asexual.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/asexual.svg" style={{ width: 15  }}/> */}
                                                                 </div>
                                                                 <p>{width > 500 ? "30% to BINARY holders" : "30% BINARY"}</p>
                                                             </div>
@@ -684,12 +656,12 @@ function Home() {
                                                                 marginRight: width > 625 ? 0 : width > 500 ? "5vw" : "10vw"
                                                             }}>
                                                                 <div>
-                                                                    {/* <StyledImg src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
-                                                                    <StyledImg src="/config/images/oberon.svg" style={{ width: 15  }}/> */}
+                                                                    {/* <Image src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/oberon.svg" style={{marginRight: 20, width: 15  }}/>
+                                                                    <Image src="/config/images/oberon.svg" style={{ width: 15  }}/> */}
                                                                     {/* <FontAwesomeIcon icon={faUser} color="white" size="xl" style={{marginRight: 10}}/>
                                                                     <FontAwesomeIcon icon={faUser} color="white" size="xl" style={{marginRight: 10}}/>
                                                                     <FontAwesomeIcon icon={faUser} color="white" size="xl" style={{marginRight: 10}}/>
@@ -708,10 +680,9 @@ function Home() {
                                                                 <p>{width > 500 ? "30% to FLUID holders" : "30% FLUID"}</p>
                                                             </div>
                                                         </div>
-                                            {/* <StyledImg src="/config/images/utility2.gif" width={450} borderRadius="0" style={{ marginRight: 26 }} /> */}
                                 </div>
                                 <div>
-                                <p style={{fontStyle: "italic", fontSize: 13, lineHeight: "1.6em", marginTop: 5}}>
+                                <p style={{fontStyle: "italic", fontSize: width > 800 ? 13 : 12, lineHeight: "1.6em", marginTop: 5}}>
                                     *The distribution will be proportional to the holdings. This means that for each BINARY token that you own you will receive 1/128 of 30% of the LUCID profits and for each FLUID token that you own you will receive 1/8,128 of 30% of the LUCID profits. This distribution will be enforced in the LUCID smart contract.
                                         </p>
                                         <br/>
@@ -733,14 +704,14 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "flex-start",
                         flexDirection: "column",
                         maxWidth: 1000,
                     }}>
                     <p style={{
-                        fontSize: 70,
+                        fontSize: width > 800 ? 70 : 50,
                         fontFamily: "hairline",
                         color: "white",
                         paddingBottom: 50,
@@ -754,16 +725,17 @@ function Home() {
                         }}>
 
                             <div style={{
+                                display: "inline-block",
                                 flex: 1,
                                 color: "white",
-                                // hyphens: "auto",
-                                // textAlign: "justify"
                             }}
                             >
-                                <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: 17 }}>
+                                <div style={{ lineHeight: "2em", fontFamily: "seriff", fontSize: width > 800 ? 17 : 15, }}>
                                     <ul style={{
                                         listStyle: width > 1000 ? "none" : null,
                                         marginLeft: width > 1000 ? 0 : "1em",
+                                        textAlign: width < 800 && width > 520 && "center",
+                                        listStyle: width < 800 && width > 520 && "inside"
                                     }}>
                                         <li style={{ paddingBottom: 10, textDecoration: "line-through" }}>
                                             <span style={{ fontFamily: "regular", fontStyle: "italic", fontSize: 23, width: width > 1000 ? 90 : "none", display: width > 1000 ? "inline-block" : "none" }}>10%</span> Creation of the AI generated art collections MVP
@@ -799,22 +771,19 @@ function Home() {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                // flex: 1,
                                 color: "white",
                                 fontSize: 20, fontFamily: "seriff",
                                 marginTop: width > 1000 ? 0 : 60,
-                                // hyphens: "auto",
-                                // textAlign: "justify"
                             }}
                             >
                                 <p style={{ padding: 20, border: "4px solid white", }}>
                                 BINARY mint
                                 </p>
                                 <div style={{paddingTop: 10}}>
-                                <StyledImg
+                                <Image
                                     src={`/config/images/arrow-right.svg`}
                                     width={23}
-                                    borderRadius="0"
+
                                     style={{
                                         transform: 'rotate(90deg)',
                                         width: 23,
@@ -832,9 +801,9 @@ function Home() {
                                 <div
                                     style={{paddingTop: 10}}
                                 >
-                                <StyledImg
+                                <Image
                                     src={`/config/images/arrow-right.svg`}
-                                    borderRadius="0"
+
                                     style={{
                                         transform: 'rotate(90deg)',
                                         width: 23,
@@ -857,7 +826,7 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "space-between",
                         flexDirection: "row",
@@ -867,7 +836,7 @@ function Home() {
                             flexDirection: "column",
                         }}>
                             <p style={{
-                                fontSize: 70,
+                                fontSize: width > 800 ? 70 : 50,
                                 fontFamily: "hairline",
                                 color: "white",
                                 paddingBottom: 50,
@@ -880,11 +849,11 @@ function Home() {
                                 color: "white",
                                 lineHeight: "2em",
                                 fontFamily: "seriff",
-                                fontSize: 17,
+                                fontSize: width > 800 ? 17 : 15,
                                 flexDirection: width > 1000 ? "row" : "column"
                             }}
                             >
-                                <div style={{ marginRight: width > 1000 ? 50 : 0, textAlign: "justify" }}>
+                                <div style={{ marginRight: width > 1000 ? 50 : 0, textAlign: "justify",  }}>
                                     <p>
                                         Orestis Zambounis (b. 1991, Basel, Switzerland) is a robotics & AI engineer, and innovator in the visual aesthetics of machine intelligence. He currently resides in Barcelona, Spain, where he works for <HoverA><a href="https://www.seervision.com/" target="_blank" style={{ textDecoration: "none", color: "white", fontStyle: "italic" }}>Seervision</a></HoverA>, a Swiss startup that creates innovative camera automation software to make live video production effortless.
                                     </p>
@@ -894,11 +863,11 @@ function Home() {
                                     </p>
                                 </div>
                                 <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-                                    <StyledImg
+                                    <Image
                                         src={`/config/images/bw.jpeg`}
-                                        borderRadius="0"
+
                                         style={{
-                                            marginTop: 10,
+                                            marginTop: width > 1000 ? 10 : 40,
                                             width: 225,
                                         }}
                                     />
@@ -929,18 +898,14 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
-                        // justifyContent: "center",
                         alignItems: "center",
                         flexDirection: "column",
                         maxWidth: 1000,
                     }}>
-                        {/* <p style={{ color: "white", paddingRight: 30}}>
-                                    Become part of our community on Discord now!
-                                </p> */}
                                 <p style={{
-                                        fontSize: 60,
+                                        fontSize: width > 800 ? 60 : 45,
                                         fontFamily: "thin",
                                         color: "white",
                                         textDecoration: "underline",
@@ -975,7 +940,7 @@ function Home() {
                     width="100%"
                 >
                     <div style={{
-                        width: "80%",
+                        width: "90%",
                         display: "flex",
                         justifyContent: "space-between",
                         flexDirection: "row",
@@ -996,11 +961,11 @@ function Home() {
                                         alignItems: "center",
                                     }}
                                     >
-                                        <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`} width={130} borderRadius="0" style={{ marginRight: 26 }} />
-                                        <StyledImg src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={130} borderRadius="0"
+                                        <Image src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`} width={130}  style={{ marginRight: 26 }} />
+                                        <Image src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
                                     </div>
                                     </div>
                                 </Link>
@@ -1021,11 +986,11 @@ function Home() {
                                         // width: "calc(50vw - 90px)",
                                     }}
                                     >
-                                        <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`} width={130} borderRadius="0" style={{ marginRight: 26 }} />
-                                        <StyledImg src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={130} borderRadius="0"
+                                        <Image src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`} width={130}  style={{ marginRight: 26 }} />
+                                        <Image src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
                                     </div>
                                     </div>
                                 </Link>
@@ -1055,7 +1020,7 @@ function Home() {
                                                         width={130 / 9 * 16}
                                                         style={{marginRight: 20}}
                                                     />
-                                        <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
                                     </div>
                                     </div>
                                 </Link>
