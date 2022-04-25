@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import styled from "styled-components";
 import { HashLink } from 'react-router-hash-link';
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { Co2Sharp } from '@mui/icons-material';
 
 
 
@@ -122,19 +120,19 @@ function Header() {
                     </Hover> */}
                     {width > 900 ? <div>
                         <Hover className="ml">
-                            <a href="https://twitter.com" target="_blank">
+                            <a href="https://twitter.com/machinedreamart" target="_blank">
                                 <FontAwesomeIcon icon={faTwitter} color="white" />
                             </a>
                         </Hover>
                         <FontAwesomeIcon icon={faTwitter} size="xs" />
                         <Hover>
-                            <a href="https://discord.com" target="_blank">
+                            <a href="https://discord.gg/kR63zCVT" target="_blank">
                                 <FontAwesomeIcon icon={faDiscord} color="white" />
                             </a>
                         </Hover>
                         <FontAwesomeIcon icon={faTwitter} size="xs" />
                         <Hover>
-                            <a href="https://instagram.com" target="_blank">
+                            <a href="https://instagram.com/machinedreamsart" target="_blank">
                                 <FontAwesomeIcon icon={faInstagram} color="white" />
                             </a>
                         </Hover>
@@ -202,15 +200,15 @@ function Header() {
                         </Hover>
                         <div>
                             <Hover>
-                                <a href="https://twitter.com" target="_blank"><FontAwesomeIcon icon={faTwitter} color="white" size="2xl" /></a>
+                                <a href="https://twitter.com/machinedreamart" target="_blank"><FontAwesomeIcon icon={faTwitter} color="white" size="2xl" /></a>
                             </Hover>
                             <FontAwesomeIcon icon={faTwitter} size="lg" />
                             <Hover>
-                                <a href="https://discord.com" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white" size="2xl" /></a>
+                                <a href="https://discord.gg/kR63zCVT" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white" size="2xl" /></a>
                             </Hover>
                             <FontAwesomeIcon icon={faTwitter} size="lg" />
                             <Hover>
-                                <a href="https://instagram.com" target="_blank">
+                                <a href="https://instagram.com/machinedreamsart" target="_blank">
                                     <FontAwesomeIcon icon={faInstagram} color="white" size="2xl" />
                                 </a>
                             </Hover>

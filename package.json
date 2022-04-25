@@ -1,7 +1,7 @@
 {
   "name": "hashlips_nft_minting_dapp",
   "version": "1.0.0",
-  "description": "MACHINE DREAMS is a series of three AI generated moving art collections placed on the Ethereum network.",
+  "description": "MACHINE DREAMS is a series of three AI-generated moving art collections placed on the Ethereum network.",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -19,6 +19,7 @@
     "jsonp": "^0.2.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-lazy-load-image-component": "^1.5.1",
     "react-player": "^2.10.0",
