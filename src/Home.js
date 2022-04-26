@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import "swiper/swiper-bundle.min.css";
@@ -24,10 +24,27 @@ const Image = function (props) {
   );
 };
 
+const VideoComponent = function ({ src, srcWebm, ...rest }) {
+  const refVideo = useRef(null);
+
+  useEffect(() => {
+    if (!refVideo.current) return;
+    refVideo.current.defaultMuted = true;
+    refVideo.current.muted = true;
+  }, [src, srcWebm]);
+
+  return (
+    <video ref={refVideo} loop autoPlay playsInline {...rest}>
+      {srcWebm && <source src={srcWebm} type="video/webm" />}
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+};
+
 const Video = function (props) {
   return (
     <LazyLoad once offset={LAZY_OFFSET} style={{ display: "inline-block" }}>
-      <video autoPlay loop muted playsInline {...props} />
+      <VideoComponent {...props} />
     </LazyLoad>
   );
 };
@@ -353,6 +370,7 @@ function Home() {
                         >
                           <Video
                             src={`${PUBLIC_ASSETS_URL}/binary/medium/0.mp4`}
+                            srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/0.webm`}
                             style={{
                               marginRight:
                                 width > 1200 ? 27 : width > 800 ? 50 : 20,
@@ -369,6 +387,7 @@ function Home() {
                           />
                           <Video
                             src={`${PUBLIC_ASSETS_URL}/binary/medium/1.mp4`}
+                            srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/1.webm`}
                             style={{
                               width:
                                 width > 1200
@@ -421,6 +440,7 @@ function Home() {
                         >
                           <Video
                             src={`${PUBLIC_ASSETS_URL}/fluid/medium/509.mp4`}
+                            srcWebm={`${PUBLIC_ASSETS_URL}/fluid/medium/509.webm`}
                             style={{
                               marginRight:
                                 width > 1200 ? 27 : width > 800 ? 50 : 20,
@@ -437,6 +457,7 @@ function Home() {
                           />
                           <Video
                             src={`${PUBLIC_ASSETS_URL}/fluid/medium/391.mp4`}
+                            srcWebm={`${PUBLIC_ASSETS_URL}/fluid/medium/391.webm`}
                             style={{
                               width:
                                 width > 1200
@@ -747,6 +768,7 @@ function Home() {
                         </p>
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/binary/medium/14.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/14.webm`}
                           style={{
                             marginBottom: 10,
                             width: 150,
@@ -755,6 +777,7 @@ function Home() {
                         />
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/binary/medium/48.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/48.webm`}
                           style={{
                             marginTop: 10,
                             marginBottom: 10,
@@ -790,6 +813,7 @@ function Home() {
                         </p>
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.webm`}
                           style={{ marginBottom: 10, width: 240 }}
                           alt={`FLUID #${FLUID_ID}`}
                         />
@@ -817,6 +841,7 @@ function Home() {
                       >
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/binary/medium/14.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/14.webm`}
                           style={{
                             marginRight: 10,
                             width: "calc((90vw - 20px) / 2)",
@@ -825,6 +850,7 @@ function Home() {
                         />
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/binary/medium/48.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/binary/medium/48.webm`}
                           style={{
                             marginLeft: 10,
                             width: "calc((90vw - 20px) / 2)",
@@ -859,6 +885,7 @@ function Home() {
                       >
                         <Video
                           src={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.mp4`}
+                          srcWebm={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.webm`}
                           style={{
                             marginBottom: 10,
                             width:
