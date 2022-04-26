@@ -8,11 +8,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import ReactPlayer from "react-player/lazy";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { isMobile } from "react-device-detect";
+import LazyLoad from "react-lazyload";
+
+const MAX_LOADING_TIME = 3;
+const FLUID_ID = 1720;
+const LINKS_OFF = true;
+const LAZY_OFFSET = 1000;
 
 const Image = function (props) {
-  return <LazyLoadImage {...props} threshold={1000} />;
+  return (
+    <LazyLoad once offset={LAZY_OFFSET} style={{ display: "inline-block" }}>
+      <img {...props} />
+    </LazyLoad>
+  );
+};
+
+const Video = function (props) {
+  return (
+    <LazyLoad once offset={LAZY_OFFSET} style={{ display: "inline-block" }}>
+      <video autoPlay loop muted playsInline {...props} />
+    </LazyLoad>
+  );
 };
 
 export const StyledVid = styled.video`
@@ -20,10 +37,6 @@ export const StyledVid = styled.video`
   border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : 0)}%;
   transition: width 0.5s;
 `;
-
-const MAX_LOADING_TIME = 3;
-const FLUID_ID = 1720;
-const LINKS_OFF = true;
 
 export const Hover = styled.div`
   display: inline-block;
@@ -33,11 +46,20 @@ export const Hover = styled.div`
   }
 `;
 
+export const HoverSpan = styled.span`
+  transition: opacity 0.2s;
+  :hover {
+    opacity: ${({ off }) => (off ? 1 : 0.67)};
+  }
+  cursor: ${({ off }) => (off ? "text" : "auto")};
+`;
+
 export const HoverA = styled.a`
   transition: opacity 0.2s;
   :hover {
     opacity: ${({ off }) => (off ? 1 : 0.67)};
   }
+  cursor: ${({ off }) => (off ? "text" : "auto")};
 `;
 
 export const HoverLi = styled.li`
@@ -71,7 +93,8 @@ export const HL = styled.span`
 
 function getWindowDimensions() {
   let width, height;
-  width = screen ? screen.width : window.innerWidth;
+  // width = screen ? screen.width : window.innerWidth;
+  width = window.innerWidth;
   height = window.innerHeight;
   return {
     width,
@@ -109,16 +132,23 @@ function useFullscreenChange() {
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
   return isFullscreen;
 }
 
-function ArrowDown({ onClick, style }) {
+function ArrowRight({ onClick, style, ...props }) {
   return (
     <Hover onClick={onClick} style={{ cursor: "pointer" }}>
-      <Image src={`/config/images/arrow-right.svg`} width={23} style={style} />
+      <Image
+        src={`/config/images/arrow-right.svg`}
+        width={23}
+        style={style}
+        alt="arrow right"
+        {...props}
+      />
     </Hover>
   );
 }
@@ -129,6 +159,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const { width, height } = useWindowDimensions();
   const isFullscreen = useFullscreenChange();
+  // console.log(width, height, isFullscreen)
   if (isFullscreen) {
     screen.orientation.lock("landscape");
   } else {
@@ -162,7 +193,7 @@ function Home() {
           if (id == "transition-loader") setLoading(false);
         }}
       >
-        <div class="loader">Loading...</div>
+        <div className="loader">Loading...</div>
       </div>
       <s.Screen id="home">
         <s.Container flex={1} jc="center" fd="column" ai="center">
@@ -204,7 +235,7 @@ function Home() {
             onEnded={() => screen.orientation.unlock()}
           />
           {showDownArrow ? (
-            <ArrowDown
+            <ArrowRight
               onClick={() => window.scrollTo({ top: height })}
               style={{
                 position: "absolute",
@@ -212,6 +243,7 @@ function Home() {
                 width: 23,
                 bottom: 20,
               }}
+              alt="arrow down"
             />
           ) : null}
         </s.Container>
@@ -319,8 +351,8 @@ function Home() {
                               width > 1200 ? 14 : width > 800 ? 35 : 10,
                           }}
                         >
-                          <Image
-                            src={`${PUBLIC_ASSETS_URL}/binary/small/0.gif`}
+                          <Video
+                            src={`${PUBLIC_ASSETS_URL}/binary/medium/0.mp4`}
                             style={{
                               marginRight:
                                 width > 1200 ? 27 : width > 800 ? 50 : 20,
@@ -333,9 +365,10 @@ function Home() {
                                   ? 192
                                   : "calc((90vw - 20px) / 2)",
                             }}
+                            alt="BINARY #0"
                           />
-                          <Image
-                            src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`}
+                          <Video
+                            src={`${PUBLIC_ASSETS_URL}/binary/medium/1.mp4`}
                             style={{
                               width:
                                 width > 1200
@@ -346,6 +379,7 @@ function Home() {
                                   ? 192
                                   : "calc((90vw - 20px) / 2)",
                             }}
+                            alt="BINARY #1"
                           />
                         </div>
                         BINARY MACHINE DREAMS
@@ -385,8 +419,8 @@ function Home() {
                               width > 1200 ? 14 : width > 800 ? 35 : 10,
                           }}
                         >
-                          <Image
-                            src={`${PUBLIC_ASSETS_URL}/fluid/small/509.gif`}
+                          <Video
+                            src={`${PUBLIC_ASSETS_URL}/fluid/medium/509.mp4`}
                             style={{
                               marginRight:
                                 width > 1200 ? 27 : width > 800 ? 50 : 20,
@@ -399,9 +433,10 @@ function Home() {
                                   ? 192
                                   : "calc((90vw - 20px) / 2)",
                             }}
+                            alt="FLUID #509"
                           />
-                          <Image
-                            src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`}
+                          <Video
+                            src={`${PUBLIC_ASSETS_URL}/fluid/medium/391.mp4`}
                             style={{
                               width:
                                 width > 1200
@@ -412,6 +447,7 @@ function Home() {
                                   ? 192
                                   : "calc((90vw - 20px) / 2)",
                             }}
+                            alt="FLUID #391"
                           />
                         </div>
                         FLUID MACHINE DREAMS
@@ -660,7 +696,7 @@ function Home() {
                     </p>
                     <p>
                       You can combine two{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/binary"
                           style={{
@@ -671,9 +707,9 @@ function Home() {
                         >
                           BINARY MACHINE DREAM
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       tokens and unlock the interpolated{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/lucid"
                           style={{
@@ -684,7 +720,7 @@ function Home() {
                         >
                           LUCID MACHINE DREAM
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       token at no additional cost:
                     </p>
                   </div>
@@ -709,22 +745,22 @@ function Home() {
                         <p style={{ color: "transparent", userSelect: "none" }}>
                           BINARY
                         </p>
-                        <Image
-                          // src={`SCANDISK/binary/${binaryTokenIds[0]}.gif`}
-                          src={`${PUBLIC_ASSETS_URL}/binary/small/14.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/binary/medium/14.mp4`}
                           style={{
                             marginBottom: 10,
                             width: 150,
                           }}
+                          alt="BINARY #14"
                         />
-                        <Image
-                          // src={`SCANDISK/binary/${binaryTokenIds[1]}.gif`}
-                          src={`${PUBLIC_ASSETS_URL}/binary/small/48.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/binary/medium/48.mp4`}
                           style={{
                             marginTop: 10,
                             marginBottom: 10,
                             width: 150,
                           }}
+                          alt="BINARY #48"
                         />
                         <p>BINARY pair</p>
                       </div>
@@ -739,6 +775,7 @@ function Home() {
                         <Image
                           src={`/config/images/arrow-right.svg`}
                           style={{ width: 30 }}
+                          alt="arrow right"
                         />
                       </div>
                       <div
@@ -751,10 +788,10 @@ function Home() {
                         <p style={{ color: "transparent", userSelect: "none" }}>
                           FLUID
                         </p>
-                        <Image
-                          // src={`SCANDISK/fluid/${FLUID_ID}.gif`}
-                          src={`${PUBLIC_ASSETS_URL}/fluid/${FLUID_ID}.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.mp4`}
                           style={{ marginBottom: 10, width: 240 }}
+                          alt={`FLUID #${FLUID_ID}`}
                         />
                         <p>FLUID result</p>
                       </div>
@@ -778,19 +815,21 @@ function Home() {
                           marginTop: 5,
                         }}
                       >
-                        <Image
-                          src={`${PUBLIC_ASSETS_URL}/binary/small/14.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/binary/medium/14.mp4`}
                           style={{
                             marginRight: 10,
                             width: "calc((90vw - 20px) / 2)",
                           }}
+                          alt="BINARY #14"
                         />
-                        <Image
-                          src={`${PUBLIC_ASSETS_URL}/binary/small/48.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/binary/medium/48.mp4`}
                           style={{
                             marginLeft: 10,
                             width: "calc((90vw - 20px) / 2)",
                           }}
+                          alt="BINARY #48"
                         />
                       </div>
                       <div
@@ -808,6 +847,7 @@ function Home() {
                             width: 30,
                             transform: "rotate(90deg)",
                           }}
+                          alt="arrow down"
                         />
                       </div>
                       <div
@@ -817,8 +857,8 @@ function Home() {
                           alignItems: "center",
                         }}
                       >
-                        <Image
-                          src={`${PUBLIC_ASSETS_URL}/fluid/${FLUID_ID}.gif`}
+                        <Video
+                          src={`${PUBLIC_ASSETS_URL}/fluid/medium/${FLUID_ID}.mp4`}
                           style={{
                             marginBottom: 10,
                             width:
@@ -826,6 +866,7 @@ function Home() {
                             height:
                               "calc(min(90vw, 300px, (90vw - 20px) / 1.5))",
                           }}
+                          alt={`FLUID #${FLUID_ID}`}
                         />
                         <p>FLUID result</p>
                       </div>
@@ -881,7 +922,7 @@ function Home() {
                     </p>
                     <p>
                       <HL>60% of the sale</HL> of the masterpiece{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/lucid"
                           style={{
@@ -892,10 +933,10 @@ function Home() {
                         >
                           LUCID MACHINE DREAM
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       will go to the <HL>community</HL>: 30% of the profits will
                       be transferred to{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/binary"
                           style={{
@@ -906,9 +947,9 @@ function Home() {
                         >
                           BINARY
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       holders and 30% to{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/fluid"
                           style={{
@@ -919,7 +960,7 @@ function Home() {
                         >
                           FLUID
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       holders*:
                     </p>
                   </div>
@@ -952,30 +993,30 @@ function Home() {
                         <div>
                           {width > 400 ? (
                             <i
-                              class="fat fa-user"
+                              className="fat fa-user"
                               style={{ fontSize: 19, marginRight: 10 }}
                             />
                           ) : null}
                           {width > 350 ? (
                             <i
-                              class="fat fa-user"
+                              className="fat fa-user"
                               style={{ fontSize: 19, marginRight: 10 }}
                             />
                           ) : null}
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                         </div>
@@ -995,29 +1036,29 @@ function Home() {
                         <div>
                           {width > 400 ? (
                             <i
-                              class="fat fa-user"
+                              className="fat fa-user"
                               style={{ fontSize: 19, marginRight: 10 }}
                             />
                           ) : null}
                           {width > 350 ? (
                             <i
-                              class="fat fa-user"
+                              className="fat fa-user"
                               style={{ fontSize: 19, marginRight: 10 }}
                             />
                           ) : null}
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
                           <i
-                            class="fat fa-user"
+                            className="fat fa-user"
                             style={{ fontSize: 19, marginRight: 10 }}
                           />
-                          <i class="fat fa-user" style={{ fontSize: 19 }} />
+                          <i className="fat fa-user" style={{ fontSize: 19 }} />
                         </div>
                         <p>
                           {width > 500 ? "30% to FLUID holders" : "30% FLUID"}
@@ -1177,7 +1218,7 @@ function Home() {
                       >
                         50%
                       </span>{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/binary"
                           style={{
@@ -1188,7 +1229,7 @@ function Home() {
                         >
                           BINARY MACHINE DREAMS
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       mint
                     </li>
                     <li style={{ paddingBottom: 10 }}>
@@ -1203,7 +1244,7 @@ function Home() {
                       >
                         60%
                       </span>{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/fluid"
                           style={{
@@ -1214,16 +1255,16 @@ function Home() {
                         >
                           FLUID MACHINE DREAMS
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       private mint for{" "}
-                      <HoverA>
+                      <HoverSpan>
                         <Link
                           to="/binary"
                           style={{ textDecoration: "none", color: "white" }}
                         >
                           BINARY
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       holders
                     </li>
                     <li style={{ paddingBottom: 10 }}>
@@ -1238,7 +1279,7 @@ function Home() {
                       >
                         70%
                       </span>{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/fluid"
                           style={{
@@ -1249,7 +1290,7 @@ function Home() {
                         >
                           FLUID MACHINE DREAMS
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       public mint
                     </li>
                     <li style={{ paddingBottom: 10 }}>
@@ -1278,7 +1319,7 @@ function Home() {
                       >
                         100%
                       </span>{" "}
-                      <HoverA off={LINKS_OFF}>
+                      <HoverSpan off={LINKS_OFF}>
                         <Link
                           to="/lucid"
                           style={{
@@ -1289,7 +1330,7 @@ function Home() {
                         >
                           LUCID MACHINE DREAM
                         </Link>
-                      </HoverA>{" "}
+                      </HoverSpan>{" "}
                       public auction
                     </li>
                   </ul>
@@ -1317,6 +1358,7 @@ function Home() {
                       transform: "rotate(90deg)",
                       width: 23,
                     }}
+                    alt="arrow right"
                   />
                 </div>
                 <p
@@ -1334,6 +1376,7 @@ function Home() {
                       transform: "rotate(90deg)",
                       width: 23,
                     }}
+                    alt="arrow down"
                   />
                 </div>
                 <p style={{ padding: 20, border: "4px solid white" }}>
@@ -1392,7 +1435,7 @@ function Home() {
                     robotics & AI engineer and innovator in the visual
                     aesthetics of machine intelligence. He currently resides in
                     Barcelona, Spain, where he works for{" "}
-                    <HoverA>
+                    <HoverSpan>
                       <a
                         href="https://www.seervision.com/"
                         target="_blank"
@@ -1404,13 +1447,13 @@ function Home() {
                       >
                         Seervision
                       </a>
-                    </HoverA>
+                    </HoverSpan>
                     , a Swiss startup that creates innovative camera automation
                     software to make live video production effortless.
                   </p>
                   <p>
                     Orestis minted his first NFT collection{" "}
-                    <HoverA>
+                    <HoverSpan>
                       <a
                         href="https://www.anticryptopunks.com/"
                         target="_blank"
@@ -1422,11 +1465,11 @@ function Home() {
                       >
                         Anti CryptoPunks
                       </a>
-                    </HoverA>{" "}
+                    </HoverSpan>{" "}
                     in December 2021 trading over 5 ETH in the first 3 months.
                     Previously, he helped build a machine learning platform to
                     reduce health inequalities in a nonprofit funded by the{" "}
-                    <HoverA
+                    <HoverSpan
                       href="https://www.gatesfoundation.org/"
                       target="_blank"
                       style={{
@@ -1436,11 +1479,11 @@ function Home() {
                       }}
                     >
                       Bill & Melinda Gates Foundation
-                    </HoverA>
+                    </HoverSpan>
                     . During his Master's, Orestis focused on deep learning and
                     computer vision for robotics, and part of his research was
                     conducted at the{" "}
-                    <HoverA>
+                    <HoverSpan>
                       <a
                         href="https://www.imperial.ac.uk/"
                         target="_blank"
@@ -1452,9 +1495,9 @@ function Home() {
                       >
                         Imperial College London
                       </a>
-                    </HoverA>
+                    </HoverSpan>
                     . Before that, he graduated from{" "}
-                    <HoverA>
+                    <HoverSpan>
                       <a
                         href="https://ethz.ch/en.html"
                         target="_blank"
@@ -1466,11 +1509,11 @@ function Home() {
                       >
                         ETH Zurich
                       </a>
-                    </HoverA>{" "}
+                    </HoverSpan>{" "}
                     with a BSc in Mechanical Engineering, performing among the
                     top 5% of his cohort. Upon graduation, he spent a year in
                     Japan, programming drones for{" "}
-                    <HoverA>
+                    <HoverSpan>
                       <a
                         href="https://www.rapyuta-robotics.com/"
                         target="_blank"
@@ -1482,7 +1525,7 @@ function Home() {
                       >
                         Rapyuta Robotics
                       </a>
-                    </HoverA>
+                    </HoverSpan>
                     , the front runner for cloud robotics.
                   </p>
                 </div>
@@ -1628,7 +1671,7 @@ function Home() {
                                         <Image src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>
@@ -1653,7 +1696,7 @@ function Home() {
                                         <Image src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>
@@ -1683,7 +1726,7 @@ function Home() {
                                                         width={130 / 9 * 16}
                                                         style={{marginRight: 20}}
                                                     />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20}  hover />
+                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>

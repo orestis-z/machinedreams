@@ -218,7 +218,7 @@ function Header() {
                             onClick={() => setMenu(false)}
                         >
                             <i
-                                class="fat fa-xmark"
+                                className="fat fa-xmark"
                                 style={{fontSize: 40, color: "white"}}
                             />
                         </Hover>
@@ -228,7 +228,7 @@ function Header() {
                         onClick={() => setMenu(true)}
                     >
                         <i
-                            class="fat fa-bars"
+                            className="fat fa-bars"
                             style={{fontSize: width < 500 ? 30 : 35, color: "white"}}
                         />
                     </Hover>
