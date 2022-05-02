@@ -3,12 +3,6 @@ import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAt, faHouse } from '@fortawesome/free-solid-svg-icons'
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import ReactPlayer from 'react-player'
-
 
 export const StyledVid = styled.video`
   background-color: black;
@@ -62,12 +56,6 @@ export const SpacerXS = styled.div`
   height: 2em;
 `;
 
-function Divider() {
-    return (<div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.3)", width: "90vw", maxWidth: 1000 }} />)
-}
-
-const PUBLIC_ASSETS_URL = "https://machinedreamsart.s3.amazonaws.com/public"
-
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -93,6 +81,9 @@ function useWindowDimensions() {
 
 function Terms() {
     const {width} = useWindowDimensions();
+    useEffect(() => {
+        document.title = "Machine Dreams Art | Terms"
+     }, []);
     return (
         <s.Screen id="">
             <s.Container

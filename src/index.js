@@ -16,10 +16,10 @@ import {
     Routes,
     Route,
   } from "react-router-dom";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
-ReactGA.initialize('G-7EX3NNPV7Y', { debug: process.env.NODE_ENV == 'development' });
-ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.initialize('G-7EX3NNPV7Y', {gtagOptions: {debug_mode: process.env.NODE_ENV == 'development'}});
+ReactGA.send({hitType: "pageview", page: window.location.pathname + window.location.search});
 
 
 ReactDOM.render(

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import styled from "styled-components";
 import { HashLink } from 'react-router-hash-link';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 
 
@@ -16,7 +16,7 @@ export const Hover = styled.div`
 `;
 
 function onLinkClick(anchortag="") {
-    return () => window.location.pathname != "/" && ReactGA.pageview(`/${anchortag ? "#" + anchortag : ""}`);
+    return () => window.location.pathname != "/" && ReactGA.send({hitType: "pageview", page:`/${anchortag ? "#" + anchortag : ""}`});
 }
 
 function getWindowDimensions() {

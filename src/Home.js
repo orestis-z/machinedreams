@@ -198,7 +198,9 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const { width, height } = useWindowDimensions();
   const isFullscreen = useFullscreenChange();
-  // console.log(width, height, isFullscreen)
+  useEffect(() => {
+    document.title = "Machine Dreams Art"
+ }, []);
   if (isFullscreen) {
     screen.orientation.lock("landscape");
   } else {
