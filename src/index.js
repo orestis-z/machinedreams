@@ -18,8 +18,8 @@ import {
   } from "react-router-dom";
 import ReactGA from 'react-ga';
 
-
 ReactGA.initialize('G-7EX3NNPV7Y', { debug: process.env.NODE_ENV == 'development' });
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 ReactDOM.render(

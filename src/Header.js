@@ -15,8 +15,8 @@ export const Hover = styled.div`
   }
 `;
 
-function onLinkClick() {
-    window.location.pathname != "/" && ReactGA.pageview("/");
+function onLinkClick(anchortag="") {
+    return () => window.location.pathname != "/" && ReactGA.pageview(`/${anchortag ? "#" + anchortag : ""}`);
 }
 
 function getWindowDimensions() {
@@ -70,7 +70,7 @@ function Header() {
             }}>
                 <Hover>
                     <HashLink to="/#home"
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("home")}
                     style={{
                         textDecoration: 'none',
                     }}>
@@ -103,23 +103,23 @@ function Header() {
                 }}>
                     <Hover>
                         <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("community")}
 
                     className="link ml" to="/#community">Community</HashLink>
                     </Hover>
                     <Hover>
                         <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("utility")}
                     className="link ml" to="/#utility">Utility</HashLink>
                     </Hover>
                     <Hover>
                         <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("roadmap")}
                     className="link ml" to="/#roadmap">Roadmap</HashLink>
                     </Hover>
                     <Hover>
                         <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick(creator)}
                     className="link ml" to="/#creator">Creator</HashLink>
                     </Hover>
                     {/* <Hover>
@@ -183,7 +183,7 @@ function Header() {
                             onClick={() => setMenu(!showMenu)}
                         >
                             <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("community")}
                     className="link" to="/#community">Community</HashLink>
                         </Hover>
                         <Hover
@@ -195,7 +195,7 @@ function Header() {
                             onClick={() => setMenu(!showMenu)}
                         >
                             <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("utility")}
                     className="link" to="/#utility">Utility</HashLink>
                         </Hover>
                         <Hover
@@ -207,7 +207,7 @@ function Header() {
                             onClick={() => setMenu(!showMenu)}
                         >
                             <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("roadmap")}
                     className="link" to="/#roadmap">Roadmap</HashLink>
                         </Hover>
                         <Hover
@@ -219,7 +219,7 @@ function Header() {
                             onClick={() => setMenu(!showMenu)}
                         >
                             <HashLink
-                    onClick={onLinkClick}
+                    onClick={onLinkClick("creator")}
                     className="link" to="/#creator">Creator</HashLink>
                         </Hover>
                         <div>
