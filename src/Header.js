@@ -119,7 +119,7 @@ function Header() {
                     </Hover>
                     <Hover>
                         <HashLink
-                    onClick={onLinkClick(creator)}
+                    onClick={onLinkClick("creator")}
                     className="link ml" to="/#creator">Creator</HashLink>
                     </Hover>
                     {/* <Hover>
