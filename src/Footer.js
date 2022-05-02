@@ -4,6 +4,7 @@ import { faTwitter, faDiscord, faInstagram } from '@fortawesome/free-brands-svg-
 import styled from "styled-components";
 import { HashLink } from 'react-router-hash-link';
 import Mailchimp from './Mailchimp'
+import ReactGA from 'react-ga';
 
 
 export const Hover = styled.div`
@@ -85,7 +86,11 @@ function Header() {
                     />
                 </div>
                 <Hover>
-                    <HashLink to="/terms/#" className="link" style={{fontFamily: "seriff", lineHeight: "2em", fontSize: 12, marginTop: 10, paddingRight: 0}}>
+                    <HashLink
+                     onClick={() => window.location.pathname.startsWith("/terms") || ReactGA.pageview("/terms")}
+                    to="/terms/#"
+                    className="link"
+                    style={{fontFamily: "seriff", lineHeight: "2em", fontSize: 12, marginTop: 10, paddingRight: 0}}>
                         Terms & Conditions
                     </HashLink>
                 </Hover>

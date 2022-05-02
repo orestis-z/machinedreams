@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import styled from "styled-components";
 import { HashLink } from 'react-router-hash-link';
+import ReactGA from 'react-ga';
 
 
 
@@ -13,6 +14,10 @@ export const Hover = styled.div`
     opacity: 0.8;
   }
 `;
+
+function onLinkClick() {
+    window.location.pathname != "/" && ReactGA.pageview("/");
+}
 
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -64,7 +69,9 @@ function Header() {
                 justifyContent: "space-between"
             }}>
                 <Hover>
-                    <HashLink to="/#home" style={{
+                    <HashLink to="/#home"
+                    onClick={onLinkClick}
+                    style={{
                         textDecoration: 'none',
                     }}>
                         <div style={{
@@ -95,16 +102,25 @@ function Header() {
                     justifyContent: "space-between"
                 }}>
                     <Hover>
-                        <HashLink className="link ml" to="/#community">Community</HashLink>
+                        <HashLink
+                    onClick={onLinkClick}
+
+                    className="link ml" to="/#community">Community</HashLink>
                     </Hover>
                     <Hover>
-                        <HashLink className="link ml" to="/#utility">Utility</HashLink>
+                        <HashLink
+                    onClick={onLinkClick}
+                    className="link ml" to="/#utility">Utility</HashLink>
                     </Hover>
                     <Hover>
-                        <HashLink className="link ml" to="/#roadmap">Roadmap</HashLink>
+                        <HashLink
+                    onClick={onLinkClick}
+                    className="link ml" to="/#roadmap">Roadmap</HashLink>
                     </Hover>
                     <Hover>
-                        <HashLink className="link ml" to="/#creator">Creator</HashLink>
+                        <HashLink
+                    onClick={onLinkClick}
+                    className="link ml" to="/#creator">Creator</HashLink>
                     </Hover>
                     {/* <Hover>
                         <HashLink className="link" to="#faqs">FAQs</HashLink>
@@ -166,7 +182,9 @@ function Header() {
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
-                            <HashLink className="link" to="/#community">Community</HashLink>
+                            <HashLink
+                    onClick={onLinkClick}
+                    className="link" to="/#community">Community</HashLink>
                         </Hover>
                         <Hover
                             style={{
@@ -176,7 +194,9 @@ function Header() {
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
-                            <HashLink className="link" to="/#utility">Utility</HashLink>
+                            <HashLink
+                    onClick={onLinkClick}
+                    className="link" to="/#utility">Utility</HashLink>
                         </Hover>
                         <Hover
                             style={{
@@ -186,7 +206,9 @@ function Header() {
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
-                            <HashLink className="link" to="/#roadmap">Roadmap</HashLink>
+                            <HashLink
+                    onClick={onLinkClick}
+                    className="link" to="/#roadmap">Roadmap</HashLink>
                         </Hover>
                         <Hover
                             style={{
@@ -196,7 +218,9 @@ function Header() {
                             }}
                             onClick={() => setMenu(!showMenu)}
                         >
-                            <HashLink className="link" to="/#creator">Creator</HashLink>
+                            <HashLink
+                    onClick={onLinkClick}
+                    className="link" to="/#creator">Creator</HashLink>
                         </Hover>
                         <div>
                             <Hover>

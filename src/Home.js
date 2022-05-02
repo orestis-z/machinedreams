@@ -16,11 +16,33 @@ const FLUID_ID = 1720;
 const LINKS_OFF = true;
 const LAZY_OFFSET = 1000;
 
+const Lazy = function ({ children, height, style, rest }) {
+  return (
+    <LazyLoad
+      once
+      offset={LAZY_OFFSET}
+      style={{ display: "inline-block", ...style }}
+      height={height || (style && style.height)}
+      {...rest}
+    >
+      {children}
+    </LazyLoad>
+  );
+};
+
+const LazyReactPlayer  = function(props) {
+  return (
+    <Lazy height={props.height} style={props.style}>
+      <ReactPlayer {...props}/>
+    </Lazy>
+  )
+}
+
 const Image = function (props) {
   return (
-    <LazyLoad once offset={LAZY_OFFSET} style={{ display: "inline-block" }}>
+    <Lazy>
       <img {...props} />
-    </LazyLoad>
+    </Lazy>
   );
 };
 
@@ -43,9 +65,9 @@ const VideoComponent = function ({ src, srcWebm, ...rest }) {
 
 const Video = function (props) {
   return (
-    <LazyLoad once offset={LAZY_OFFSET} style={{ display: "inline-block" }}>
+    <Lazy>
       <VideoComponent {...props} />
-    </LazyLoad>
+    </Lazy>
   );
 };
 
@@ -110,8 +132,8 @@ export const HL = styled.span`
 
 function getWindowDimensions() {
   let width, height;
-  // width = screen ? screen.width : window.innerWidth;
-  width = window.innerWidth;
+  width = isMobile && screen ? screen.width : window.innerWidth;
+  // width = window.innerWidth;
   height = window.innerHeight;
   return {
     width,
@@ -507,7 +529,7 @@ function Home() {
                           }}
                         >
                           {/* <Image src={`/config/images/small.gif`} width={96 / 9 * 16}  /> */}
-                          <ReactPlayer
+                          <LazyReactPlayer
                             url="https://vimeo.com/690681684"
                             playing
                             loop
@@ -992,7 +1014,7 @@ function Home() {
                     </p>
                   </div>
                   <div>
-                    <ReactPlayer
+                    <LazyReactPlayer
                       url="https://vimeo.com/690681684"
                       playing
                       loop
@@ -1744,7 +1766,7 @@ function Home() {
                                         // width: "calc(50vw - 90px)",
                                     }}
                                     >
-                                        <ReactPlayer
+                                        <LazyReactPlayer
                                                         url='https://vimeo.com/690681684'
                                                         playing
                                                         loop
