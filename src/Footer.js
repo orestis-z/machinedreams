@@ -53,7 +53,7 @@ function Header() {
                     </Hover>
                     <FontAwesomeIcon icon={faTwitter} size="lg" />
                     <Hover>
-                        <a href="https://discord.gg/kR63zCVT" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white" size="2xl"/></a>
+                        <a href="https://discord.gg/CybHauKqz2" target="_blank"><FontAwesomeIcon icon={faDiscord} color="white" size="2xl"/></a>
                     </Hover>
                     <FontAwesomeIcon icon={faTwitter} size="lg" />
                     <Hover>

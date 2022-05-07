@@ -202,9 +202,9 @@ function Home() {
     document.title = "Machine Dreams Art"
  }, []);
   if (isFullscreen) {
-    screen.orientation.lock("landscape");
+    screen.orientation && screen.orientation.lock("landscape");
   } else {
-    screen.orientation.unlock();
+    screen.orientation && screen.orientation.unlock();
   }
   let showDownArrow = width < height;
   setTimeout(() => setLoading(false), MAX_LOADING_TIME * 1000);
@@ -625,7 +625,7 @@ function Home() {
                 <Hover>
                   <a
                     target="_blank"
-                    href="https://discord.gg/kR63zCVT"
+                    href="https://discord.gg/CybHauKqz2"
                     style={{ textDecoration: "none", color: "white" }}
                   >
                     <HL>Discord server</HL>
@@ -638,7 +638,7 @@ function Home() {
             <Hover>
               <a
                 target="_blank"
-                href="https://discord.gg/kR63zCVT"
+                href="https://discord.gg/CybHauKqz2"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <div
@@ -1658,7 +1658,7 @@ function Home() {
             <Hover>
               <a
                 target="_blank"
-                href="https://discord.gg/kR63zCVT"
+                href="https://discord.gg/CybHauKqz2"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <div
