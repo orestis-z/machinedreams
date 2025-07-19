@@ -81,7 +81,7 @@ function VideoPlayer() {
             autoPlay
             loop
             muted
-            src="/config/videos/video128-slow2.mp4"
+            src={`${process.env.PUBLIC_URL}/config/videos/video128-slow2.mp4`}
             type="video/mp4"
             borderRadius="0"
             style={{

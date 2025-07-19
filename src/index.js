@@ -24,21 +24,21 @@ ReactGA.send({hitType: "pageview", page: window.location.pathname + window.locat
 
 ReactDOM.render(
   <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Header/>
         <Routes>
         {/* <Route path="/mint-bmd" element={
             <Mint
                 title="Binary Machine Dreams"
-                tokenConfig={`/config/config-bmd.${process.env.NODE_ENV}.json`}
-                abi={`/config/abi-bmd.${process.env.NODE_ENV}.json`}
+                tokenConfig={`${process.env.PUBLIC_URL}/config/config-bmd.${process.env.NODE_ENV}.json`}
+                abi={`${process.env.PUBLIC_URL}/config/abi-bmd.${process.env.NODE_ENV}.json`}
                 />}
             />
             <Route path="/mint-fmd" element={
                 <Mint
                 title="Fluid Machine Dreams"
-                tokenConfig={`/config/config-fmd.${process.env.NODE_ENV}.json`}
-                abi={`/config/abi-fmd.${process.env.NODE_ENV}.json`}
+                tokenConfig={`${process.env.PUBLIC_URL}/config/config-fmd.${process.env.NODE_ENV}.json`}
+                abi={`${process.env.PUBLIC_URL}/config/abi-fmd.${process.env.NODE_ENV}.json`}
                 />}
             /> */}
         <Route path="/" element={<Home />}></Route>

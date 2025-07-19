@@ -182,7 +182,7 @@ function ArrowRight({ onClick, style, ...props }) {
   return (
     <Hover onClick={onClick} style={{ cursor: "pointer" }}>
       <Image
-        src={`/config/images/arrow-right.svg`}
+        src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
         width={23}
         style={style}
         alt="arrow right"
@@ -820,7 +820,7 @@ function Home() {
                         }}
                       >
                         <Image
-                          src={`/config/images/arrow-right.svg`}
+                          src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
                           style={{ width: 30 }}
                           alt="arrow right"
                         />
@@ -892,7 +892,7 @@ function Home() {
                         }}
                       >
                         <Image
-                          src={`/config/images/arrow-right.svg`}
+                          src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
                           style={{
                             width: 30,
                             transform: "rotate(90deg)",
@@ -1403,7 +1403,7 @@ function Home() {
                 </p>
                 <div style={{ paddingTop: 10 }}>
                   <Image
-                    src={`/config/images/arrow-right.svg`}
+                    src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
                     width={23}
                     style={{
                       transform: "rotate(90deg)",
@@ -1422,7 +1422,7 @@ function Home() {
                 </p>
                 <div style={{ paddingTop: 10 }}>
                   <Image
-                    src={`/config/images/arrow-right.svg`}
+                    src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
                     style={{
                       transform: "rotate(90deg)",
                       width: 23,
@@ -1722,7 +1722,7 @@ function Home() {
                                         <Image src={`${PUBLIC_ASSETS_URL}/binary/small/1.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
+                                        <Image src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>
@@ -1747,7 +1747,7 @@ function Home() {
                                         <Image src={`${PUBLIC_ASSETS_URL}/fluid/small/391.gif`} width={130}
                                         style={{ marginRight: 20 }}
                                         />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
+                                        <Image src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>
@@ -1777,7 +1777,7 @@ function Home() {
                                                         width={130 / 9 * 16}
                                                         style={{marginRight: 20}}
                                                     />
-                                        <Image src={`/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
+                                        <Image src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`} width={20} hover alt="arrow right" />
                                     </div>
                                     </div>
                                 </Link>
