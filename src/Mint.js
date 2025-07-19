@@ -358,7 +358,7 @@ function App(props) {
             width: "75%",
             justifyContent: "space-between",
         }}>
-            {[...Array(4).keys()].map(i => <StyledImg src={`/config/images/small/${i + 12}.gif`} key={i} width={128} borderRadius="0" />)}
+            {[...Array(4).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 12}.gif`} key={i} width={128} borderRadius="0" />)}
         </div> */}
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
@@ -380,7 +380,7 @@ function App(props) {
           >
               <s.Container flex={1} jc={"center"} ai={"center"}>
             {/* <StyledImg alt={"example"} src={"/config/images/121.gif"} /> */}
-            <StyledVid autoPlay loop muted src={"/config/videos/video128-slow.mp4"} type="video/mp4" borderRadius="0"/>
+            <StyledVid autoPlay loop muted src={`${process.env.PUBLIC_URL}/config/videos/video128-slow.mp4`} type="video/mp4" borderRadius="0"/>
           </s.Container>
             <s.SpacerLarge />
             <s.TextTitle
@@ -562,7 +562,7 @@ function App(props) {
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg
               alt={"example"}
-              src={"/config/images/142.svg"}
+              src={`${process.env.PUBLIC_URL}/config/images/142.svg`}
               style={{ transform: "scaleX(-1)" }}
             />
           </s.Container> */}
@@ -573,12 +573,12 @@ function App(props) {
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
         >
-            {[...Array(128).keys()].map(i => <SwiperSlide><StyledImg src={`/config/images/small/${i}.gif`} key={i} width={64} borderRadius="0" /></SwiperSlide>)}
+            {[...Array(128).keys()].map(i => <SwiperSlide><StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i}.gif`} key={i} width={64} borderRadius="0" /></SwiperSlide>)}
         </Swiper> */}
-        {/* {[...Array(32).keys()].map(i => <StyledImg src={`/config/images/small/${i}.gif`} key={i} width={64} borderRadius="0" />)}
-        {[...Array(32).keys()].map(i => <StyledImg src={`/config/images/small/${i + 32}.gif`} key={i + 32} width={64} borderRadius="0" />)}
-        {[...Array(32).keys()].map(i => <StyledImg src={`/config/images/small/${i + 64}.gif`} key={i + 64} width={64} borderRadius="0" />)}
-        {[...Array(32).keys()].map(i => <StyledImg src={`/config/images/small/${i + 96}.gif`} key={i + 96} width={64} borderRadius="0" />)} */}
+        {/* {[...Array(32).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i}.gif`} key={i} width={64} borderRadius="0" />)}
+        {[...Array(32).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 32}.gif`} key={i + 32} width={64} borderRadius="0" />)}
+        {[...Array(32).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 64}.gif`} key={i + 64} width={64} borderRadius="0" />)}
+        {[...Array(32).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 96}.gif`} key={i + 96} width={64} borderRadius="0" />)} */}
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
           <s.TextDescription
