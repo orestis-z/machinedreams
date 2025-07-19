@@ -318,7 +318,7 @@ function App(props) {
                 // spaceBetween={50}
                 slidesPerView={5}
             >
-                {[...Array(128).keys()].map(i => <SwiperSlide><StyledImg src={`/config/images/small/${i}.gif`} key={i} width={128} borderRadius="0" /></SwiperSlide>)}
+                {[...Array(128).keys()].map(i => <SwiperSlide><StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i}.gif`} key={i} width={128} borderRadius="0" /></SwiperSlide>)}
             </Swiper>
         </div> */}
         {/* <div style={{
@@ -328,7 +328,7 @@ function App(props) {
             width: "75%",
             justifyContent: "space-between",
         }}>
-            {[...Array(4).keys()].map(i => <StyledImg src={`/config/images/small/${i}.gif`} key={i} width={128} borderRadius="0" />)}
+            {[...Array(4).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i}.gif`} key={i} width={128} borderRadius="0" />)}
         </div>
         <s.SpacerLarge />
         <div style={{
@@ -338,7 +338,7 @@ function App(props) {
             width: "75%",
             justifyContent: "space-between",
         }}>
-            {[...Array(4).keys()].map(i => <StyledImg src={`/config/images/small/${i + 4}.gif`} key={i} width={128} borderRadius="0" />)}
+            {[...Array(4).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 4}.gif`} key={i} width={128} borderRadius="0" />)}
         </div>
         <s.SpacerLarge />
         <div style={{
@@ -348,7 +348,7 @@ function App(props) {
             width: "75%",
             justifyContent: "space-between",
         }}>
-            {[...Array(4).keys()].map(i => <StyledImg src={`/config/images/small/${i + 8}.gif`} key={i} width={128} borderRadius="0" />)}
+            {[...Array(4).keys()].map(i => <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/${i + 8}.gif`} key={i} width={128} borderRadius="0" />)}
         </div>
         <s.SpacerLarge />
         <div style={{

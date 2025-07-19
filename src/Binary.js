@@ -57,7 +57,7 @@ function VideoPlayer() {
     <s.Screen>
         <Link to="/">
       <StyledImg
-        src={`/config/images/arrow-right.svg`}
+        src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`}
         width={16} borderRadius="0"
         style={{
             position: "absolute",
@@ -329,9 +329,9 @@ Frame rate: 30 fps
                 alignItems: "center",
                 }}
             >
-            <StyledImg src={`/config/images/small/0.gif`} width={128} borderRadius="0" style={{marginRight: 30}}/>
-            <StyledImg src={`/config/images/small/1.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" />
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/0.gif`} width={128} borderRadius="0" style={{marginRight: 30}}/>
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/small/1.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`} width={20} borderRadius="0" />
                     </div>
             </Link>
                     </div>
@@ -350,9 +350,9 @@ Frame rate: 30 fps
                 // width: "calc(50vw - 90px)",
                 }}
             >
-            <StyledImg src={`/config/images/favpairs/509.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/favpairs/391.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
-            <StyledImg src={`/config/images/arrow-right.svg`} width={20} borderRadius="0" />
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/favpairs/509.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/favpairs/391.gif`} width={128} borderRadius="0" style={{marginRight: 30}} />
+            <StyledImg src={`${process.env.PUBLIC_URL}/config/images/arrow-right.svg`} width={20} borderRadius="0" />
                     </div>
             </Link>
                     </div>

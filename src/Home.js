@@ -1588,7 +1588,7 @@ function Home() {
                   }}
                 >
                   <Image
-                    src={`/config/images/bw.jpeg`}
+                    src={`${process.env.PUBLIC_URL}/config/images/bw.jpeg`}
                     style={{
                       marginTop: width > 1000 ? 10 : 40,
                       width: 225,
