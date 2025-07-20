@@ -2,7 +2,7 @@
   "name": "hashlips_nft_minting_dapp",
   "version": "1.0.0",
   "description": "MACHINE DREAMS is a series of three AI-generated moving art collections placed on the Ethereum network.",
-  "homepage": "https://orestisz.com/machinedreamsart",
+  "homepage": "https://orestisz.com/machinedreams",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.1",
